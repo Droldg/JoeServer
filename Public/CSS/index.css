@@ -16,13 +16,18 @@ body {
     background-color: #B791A3;
     padding: 1rem 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Holder logo og andre elementer i hver deres ende */
     align-items: center;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    color: #181818;
+}
+
+.left-content {
+    display: flex;
+    align-items: center; /* Justerer logo og links vertikalt */
+    gap: 2rem; /* Giver plads mellem logo og links */
 }
 
 .logo {
@@ -34,13 +39,14 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2rem;;
 }
 
 .nav-links a {
     color: black;
     text-decoration: none;
     font-size: 1rem;
+    
 }
 
 .main-content {
@@ -50,11 +56,11 @@ body {
 
 .feed-grid {
     display: flex;
-    justify-content: center; /* Centrerer kasserne horisontalt */
-    align-items: stretch; /* Sørger for, at de har samme højde */
-    flex-wrap: wrap; /* Tillader kasserne at bryde til næste linje */
-    gap: 2rem; /* Øget afstand mellem kasser */
-    padding: 2rem; /* Giver mere plads omkring grid */
+    justify-content: center; 
+    align-items: stretch; 
+    flex-wrap: wrap; 
+    gap: 3rem; 
+    padding: 2rem; 
 }
 
 .post-card {
@@ -62,9 +68,9 @@ body {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.1s;
-    flex: 1 1 calc(30% - 2rem); /* Mindre bredde for at give mere mellemrum */
-    max-width: 280px; /* Reducer breddebegrænsningen */
-    box-sizing: border-box; /* Medregner padding og border */
+    flex: 1 1 calc(30% - 2rem); 
+    max-width: 280px; 
+    box-sizing: border-box; 
 }
 
 .post-card:hover {
@@ -115,12 +121,15 @@ body {
     }
 
     .feed-grid {
-        flex-direction: column; /* Skift til lodret layout */
-        gap: 1rem; /* Afstand mellem kasser */
+        flex-direction: column; 
+        gap: 1rem; 
     }
 
     .post-card {
-        flex: 1 1 100%; /* Gør kasserne fuldbredde på mobil */
+        flex: 1 1 100%; 
         max-width: 100%;
     }
+}
+.png{
+    width: 4vh;
 }
