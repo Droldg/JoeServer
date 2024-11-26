@@ -5,7 +5,6 @@
     font-family: "Roboto", sans-serif;
     font-weight: 700;
     font-style: normal;
-      
 }
 
 body {
@@ -49,17 +48,22 @@ body {
 }
 
 .feed-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
+    display: flex;
+    justify-content: center; /* Centrerer kasserne horisontalt */
+    align-items: stretch; /* Sørger for, at de har samme højde */
+    flex-wrap: wrap; /* Tillader kasserne at bryde til næste linje */
+    gap: 2rem; /* Øget afstand mellem kasser */
+    padding: 2rem; /* Giver mere plads omkring grid */
 }
 
 .post-card {
     background-color: #242424;
     border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.1s;
+    flex: 1 1 calc(30% - 2rem); /* Mindre bredde for at give mere mellemrum */
+    max-width: 280px; /* Reducer breddebegrænsningen */
+    box-sizing: border-box; /* Medregner padding og border */
 }
 
 .post-card:hover {
@@ -97,7 +101,7 @@ body {
     border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
 .upload-button:hover {
@@ -110,6 +114,12 @@ body {
     }
 
     .feed-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column; /* Skift til lodret layout */
+        gap: 1rem; /* Afstand mellem kasser */
+    }
+
+    .post-card {
+        flex: 1 1 100%; /* Gør kasserne fuldbredde på mobil */
+        max-width: 100%;
     }
 }
