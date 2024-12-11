@@ -10,7 +10,7 @@ document.querySelector('.login-form').addEventListener('submit', async (event) =
     }
 
     try {
-            const response = await fetch('https://localhost:3000/api/login', {
+            const response = await fetch('https://hait-joe.live/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function showCookieModal() {
 
     document.getElementById('accept-cookies').addEventListener('click', async () => {
         try {
-            const response = await fetch('https://localhost:3000/api/accept-cookies', {
+            const response = await fetch('https://hait-joe.live/api/accept-cookies', {
                 method: 'POST',
                 credentials: 'include',
             });

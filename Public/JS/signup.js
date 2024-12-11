@@ -19,7 +19,7 @@ document.getElementById('signup-form').addEventListener('submit', async (event) 
         const userData = { name, email, password };
 
         // Send data til backend via POST-request
-        const response = await fetch('https://localhost:3000/api/signup', { // Backend URL
+        const response = await fetch('https://hait-joe.live/api/signup', { // Backend URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

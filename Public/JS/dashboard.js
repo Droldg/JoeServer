@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     async function checkLogin() {
         try {
-            const response = await fetch('https://localhost:3000/api/check-auth', {
+            const response = await fetch('https://hait-joe.live/api/check-auth', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Logout functionality
     document.getElementById('logout-button').addEventListener('click', async () => {
         try {
-            const response = await fetch('https://localhost:3000/api/logout', {
+            const response = await fetch('https://hait-joe.live/api/logout', {
                 method: 'POST',
                 credentials: 'include',
             });
