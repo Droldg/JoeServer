@@ -64,3 +64,4 @@ const PORT = process.env.PORT || 3000; // Dynamisk port eller 3000 som fallback
 app.listen(PORT, () => {
     console.log(`Server kører på http://localhost:${PORT}`);
 });
+
