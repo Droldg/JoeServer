@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const app = express();
 const PORT = 3001; // Port for webhook server
 
-// GitHub Webhook Secret (den du har angivet i GitHub)
+// GitHub Webhook Secret Key
 const WEBHOOK_SECRET = 'my_secret_key';
 
 // Middleware til parsing af JSON
