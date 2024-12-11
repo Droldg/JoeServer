@@ -114,19 +114,19 @@ async function fetchAndDisplayPosts(socialID) {
 
         const posts = await response.json();
 
-        // Container for alle posts
-        const container = document.getElementById('container');
+        // Container for posts
+        const container = document.getElementById('feed-container');
         container.innerHTML = ''; // Ryd eksisterende indhold
 
-        posts.forEach((data) => {
-            const postElement = `
+        posts.forEach((post) => {
+            const postHTML = `
                 <div class="post-content">
-                    <img id="postMedia" src="${data.postMedia}" alt="Uploaded Image" style="max-width: 300px; display: block; margin: 0 auto;">
-                    <h3>User Name</h3>
-                    <h3 style="margin: 0;">${data.postTitle}</h3>
-                    <p style="margin: 5px 0;">${data.postCaption}</p>
+                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
+                    <h2>User Name</h2>
+                    <h4>${post.postTitle}</h4>
+                    <p>${post.postCaption}</p>
                 </div>`;
-            container.innerHTML += postElement;
+            container.innerHTML += postHTML;
         });
     } catch (err) {
         console.error('An error occurred while fetching posts:', err);
@@ -134,7 +134,8 @@ async function fetchAndDisplayPosts(socialID) {
     }
 }
 
-// Eksempel: Hent og vis posts med et specifikt socialID
+// Eksempel: Hent posts med et specifikt socialID
 fetchAndDisplayPosts('social1');
+
 
 

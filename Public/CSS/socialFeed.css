@@ -12,8 +12,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 10px auto; /* Reducer lodret margin til 10px */
-    width: 90%;
-    max-width: 50vh;
+    max-width: 55vh;
     overflow: hidden;
     padding: 15px;
     border: 1px solid #ccc;
@@ -21,33 +20,43 @@
 
 
 
-.post-content h3 {
-    margin: 0 0 10px;
+.post-content h4 {
+    margin: 0 5px 8px;
+    font-size: 18px;
+    color: black;
+}
+.post-content h2 {
+    margin: 0 5px 8px;
     font-size: 18px;
     color: black;
 }
 
 .post-content p {
-    margin: 0;
+    margin: 5px 8px;
     font-size: 14px;
     color: #555;
 }
 
 .back h3 {
-    display: flex;
-    color: black;
-    margin-left: 1vh;
-    height: 5vh;
-    width: 15vh;
     position: fixed;
-    padding: 1vh;
-    align-items: center;
+    top: 10vh; /* Placerer knappen lidt nede på siden */
+    left: 1vh; /* Placerer knappen lidt inde fra venstre */
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #f39c12;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .back h3:hover {
-    background-color: #F7F7F7;
-    border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: #e67e22; /* Ændrer farven ved hover */
+    transform: translateY(-2px); /* Løfter knappen lidt ved hover */
+
 }
 
 
@@ -104,8 +113,8 @@
 
 #openModal {
     position: fixed;
-    top: 20vh; /* Placerer knappen lidt nede på siden */
-    left: 10px; /* Placerer knappen lidt inde fra venstre */
+    top: 10vh; /* Placerer knappen lidt nede på siden */
+    left: 15vh; /* Placerer knappen lidt inde fra venstre */
     padding: 12px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -129,8 +138,9 @@
 }
 
 
-#postMedia {
-    max-width: 300px;
-    border: 1px solid #ccc;
+.post-content img {
     display: block;
+    max-width: 100%; /* Gør billedet responsivt */
+    height: auto; /* Bevarer billedets proportioner */
+    border-radius: 8px;
 }
