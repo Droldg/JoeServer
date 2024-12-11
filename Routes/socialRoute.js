@@ -1,41 +1,37 @@
 const express = require('express');
-const { poolPromise } = require('../database');
+const { poolPromise } = require('../database'); // Sørg for, at din databaseforbindelse er korrekt opsat
 const router = express.Router();
 
-// Midlertidig sessionlagring (valgfrit, hvis det er nødvendigt)
-const sessions = {}; 
-
-// Placeholder for endpoints
-
-// Endpoint: Opret et opslag
+// Endpoint til oprettelse af en post
 router.post('/create-post', async (req, res) => {
-    // Tilføj logik til at oprette et nyt opslag
-    res.status(501).send('Create post endpoint not implemented yet.');
+    const { socialID, userID, title, message, media } = req.body;
+    //console.log(req.body)
+
+    // Validering af input
+    if (!socialID || !userID || !title || !message || !media) {
+        return res.status(400).send('All fields are required.');
+    }
+
+    try {
+        const pool = await poolPromise; // Henter databaseforbindelsen
+        await pool.request()
+            .input('socialID', socialID)
+            .input('userID', userID)
+            .input('postTitle', title)
+            .input('postCaption', message)
+            .input('postMedia', media)
+            .input('postLikes', 0) // Standardværdien for likes
+            .input('postComments', '') // Tom kommentar som standard
+            .query(`
+                INSERT INTO social001 (socialID, userID, postTitle, postCaption, postMedia, postLikes, postComments)
+                VALUES (@socialID, @userID, @postTitle, @postCaption, @postMedia, @postLikes, @postComments);
+            `);
+
+        res.status(201).send({ message: 'Post created successfully!' });
+    } catch (error) {
+        console.error('Error creating post:', error);
+        res.status(500).send('An error occurred while creating the post.');
+    }
 });
 
-// Endpoint: Hent opslag
-router.get('/posts', async (req, res) => {
-    // Tilføj logik til at hente opslag
-    res.status(501).send('Fetch posts endpoint not implemented yet.');
-});
-
-// Endpoint: Synes godt om et opslag
-router.post('/like-post', async (req, res) => {
-    // Tilføj logik til at synes godt om et opslag
-    res.status(501).send('Like post endpoint not implemented yet.');
-});
-
-// Endpoint: Kommenter på et opslag
-router.post('/comment-post', async (req, res) => {
-    // Tilføj logik til at kommentere på et opslag
-    res.status(501).send('Comment on post endpoint not implemented yet.');
-});
-
-// Endpoint: Hent brugerens opslag
-router.get('/user-posts', async (req, res) => {
-    // Tilføj logik til at hente en specifik brugers opslag
-    res.status(501).send('Fetch user posts endpoint not implemented yet.');
-});
-
-// Exporter routeren
 module.exports = router;
