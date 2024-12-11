@@ -56,7 +56,7 @@ function showCookieModal() {
             if (response.ok) {
                 alert('Cookies accepted!');
                 modal.style.display = 'none';
-                window.location.href = '../HTML/dashboard.html'; // Videre til dashboard
+                window.location.href = '/dashboard.html'; // Videre til dashboard
             } else {
                 alert('Failed to accept cookies.');
             }
