@@ -1,37 +1,42 @@
 const express = require('express');
 const { exec } = require('child_process');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = 3001; // Port for webhook server
 
 // GitHub Webhook Secret (den du har angivet i GitHub)
-const WEBHOOK_SECRET = 'your_secret_key';
+const WEBHOOK_SECRET = 'my_secret_key';
 
 // Middleware til parsing af JSON
 app.use(bodyParser.json());
 
-// Verificér Webhook-signatur
-const crypto = require('crypto');
-function verifySignature(req, res, buf) {
-    const signature = `sha256=${crypto
-        .createHmac('sha256', WEBHOOK_SECRET)
-        .update(buf)
-        .digest('hex')}`;
-
-    if (req.headers['x-hub-signature-256'] !== signature) {
-        res.status(401).send('Invalid signature');
+// Verificer signatur fra GitHub
+function verifySignature(req, secret) {
+    const signature = req.headers['x-hub-signature-256'];
+    if (!signature) {
+        console.error('No signature provided.');
         return false;
     }
-    return true;
+
+    const hmac = crypto.createHmac('sha256', secret);
+    const payload = JSON.stringify(req.body); // Konverter objekt til JSON-streng
+    hmac.update(payload); // Brug korrekt dataformat
+
+    const expectedSignature = `sha256=${hmac.digest('hex')}`;
+    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
 }
 
 // Middleware til signatur-verificering
 app.use((req, res, next) => {
-    bodyParser.raw({ type: 'application/json' })(req, res, (err) => {
-        if (err || !verifySignature(req, res, req.body)) return;
-        next();
-    });
+    const rawBody = JSON.stringify(req.body);
+    const valid = verifySignature({ headers: req.headers, body: rawBody }, WEBHOOK_SECRET);
+    if (!valid) {
+        console.error('Invalid signature.');
+        return res.status(401).send('Invalid signature.');
+    }
+    next();
 });
 
 // Webhook-endpoint
@@ -46,11 +51,19 @@ app.post('/webhook', (req, res) => {
         exec('git pull', { cwd: '/root/JoeServer' }, (err, stdout, stderr) => {
             if (err) {
                 console.error(`Error during git pull: ${stderr}`);
-                res.status(500).send(`Error: ${stderr}`);
-                return;
+                return res.status(500).send(`Error: ${stderr}`);
             }
             console.log(`Git Pull Output: ${stdout}`);
-            res.status(200).send('Git pull executed successfully');
+
+            // Genstart PM2-processen efter pull
+            exec('pm2 restart joe-app', (pm2Err, pm2Stdout, pm2Stderr) => {
+                if (pm2Err) {
+                    console.error(`PM2 Restart Error: ${pm2Stderr}`);
+                    return res.status(500).send(`PM2 Error: ${pm2Stderr}`);
+                }
+                console.log(`PM2 Restart Output: ${pm2Stdout}`);
+                res.status(200).send('Git pull and PM2 restart executed successfully');
+            });
         });
     } else {
         res.status(200).send('Not a push event on main branch. Ignored.');
