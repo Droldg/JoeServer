@@ -34,4 +34,30 @@ router.post('/create-post', async (req, res) => {
     }
 });
 
+
+// Endpoint til at hente alle posts med et specifikt socialID
+router.get('/posts/:socialID', async (req, res) => {
+    const { socialID } = req.params;
+
+    try {
+        const pool = await poolPromise;
+
+        const result = await pool.request()
+            .input('socialID', socialID)
+            .query('SELECT * FROM social001 WHERE socialID = @socialID;');
+
+        if (result.recordset.length === 0) {
+            return res.status(404).send('No posts found with the given socialID.');
+        }
+
+        res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+        res.status(500).send('An error occurred while fetching posts.');
+    }
+});
+
+
+
+
 module.exports = router;
