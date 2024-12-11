@@ -30,7 +30,9 @@ app.use(cookieParser());
 app.use('/CSS', express.static(path.join(__dirname, 'Public', 'CSS')));
 app.use('/JS', express.static(path.join(__dirname, 'Public', 'JS')));
 app.use('/PNG', express.static(path.join(__dirname, 'Public', 'PNG')));
-app.use('/HTML', express.static(path.join(__dirname, 'Public', 'HTML')));
+// Server HTML direkte fra "Public/HTML" uden /HTML i URL'en
+app.use('/', express.static(path.join(__dirname, 'Public', 'HTML')));
+
 
 // Server forsiden (index.html) fra "Public/HTML"
 app.get('/', (req, res) => {
