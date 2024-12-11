@@ -5,14 +5,13 @@ const crypto = require('crypto');
 
 const app = express();
 const PORT = 3001; // Port for webhook server
-
-// GitHub Webhook Secret Key
 const WEBHOOK_SECRET = 'my_secret_key';
 
-// Middleware til parsing af JSON
-app.use(bodyParser.json());
+// Middleware for raw body parsing
+app.use(
+    bodyParser.raw({ type: 'application/json' }) // Raw data for HMAC verification
+);
 
-// Verificer signatur fra GitHub
 function verifySignature(req, secret) {
     const signature = req.headers['x-hub-signature-256'];
     if (!signature) {
@@ -21,41 +20,30 @@ function verifySignature(req, secret) {
     }
 
     const hmac = crypto.createHmac('sha256', secret);
-    const payload = JSON.stringify(req.body); // Konverter objekt til JSON-streng
-    hmac.update(payload); // Brug korrekt dataformat
-
+    hmac.update(req.body); // Use raw body
     const expectedSignature = `sha256=${hmac.digest('hex')}`;
+
+    console.log('Signature from GitHub:', signature);
+    console.log('Computed Signature:', expectedSignature);
+
     return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
 }
 
-// Middleware til signatur-verificering
-app.use((req, res, next) => {
-    const rawBody = JSON.stringify(req.body);
-    const valid = verifySignature({ headers: req.headers, body: rawBody }, WEBHOOK_SECRET);
-    if (!valid) {
+app.post('/webhook', (req, res) => {
+    if (!verifySignature(req, WEBHOOK_SECRET)) {
         console.error('Invalid signature.');
         return res.status(401).send('Invalid signature.');
     }
-    next();
-});
 
-// Webhook-endpoint
-app.post('/webhook', (req, res) => {
-    const payload = req.body;
-
-    // Tjek, om det er et push-event på 'main'-branch
+    const payload = JSON.parse(req.body); // Parse raw body after verification
     if (payload.ref === 'refs/heads/main') {
         console.log('Push event received. Running git pull...');
-
-        // Kør git pull
         exec('git pull', { cwd: '/root/JoeServer' }, (err, stdout, stderr) => {
             if (err) {
                 console.error(`Error during git pull: ${stderr}`);
                 return res.status(500).send(`Error: ${stderr}`);
             }
             console.log(`Git Pull Output: ${stdout}`);
-
-            // Genstart PM2-processen efter pull
             exec('pm2 restart joe-app', (pm2Err, pm2Stdout, pm2Stderr) => {
                 if (pm2Err) {
                     console.error(`PM2 Restart Error: ${pm2Stderr}`);
