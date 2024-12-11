@@ -5,6 +5,14 @@
     align-items: center;
 
 }
+#knapper{
+    display: flex;
+    text-decoration: none;
+    margin: -2vh;
+    margin-left: 2px;
+    padding: 10px;
+    gap: 10px;
+}
 
 
 .post-content {
@@ -38,25 +46,25 @@
 }
 
 .back h3 {
-    position: fixed;
-    top: 10vh; /* Placerer knappen lidt nede på siden */
-    left: 1vh; /* Placerer knappen lidt inde fra venstre */
+    text-decoration: none;
     padding: 12px 20px;
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
-    background-color: #f39c12;
+    color: black;
+    background-color: #f7c1d9;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+.back a {
+    text-decoration: none;
+}
 
 .back h3:hover {
-    background-color: #e67e22; /* Ændrer farven ved hover */
+    background-color: #c799ad; /* Ændrer farven ved hover */
     transform: translateY(-2px); /* Løfter knappen lidt ved hover */
-
 }
 
 
@@ -99,8 +107,8 @@
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
-    background-color: #f39c12;
+    color: black;
+    background-color: #f7c1d9;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -112,14 +120,11 @@
 }
 
 #openModal {
-    position: fixed;
-    top: 10vh; /* Placerer knappen lidt nede på siden */
-    left: 15vh; /* Placerer knappen lidt inde fra venstre */
     padding: 12px 20px;
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
-    background-color: #f39c12;
+    color: black;
+    background-color: #f7c1d9;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -128,12 +133,12 @@
 }
 
 #openModal:hover {
-    background-color: #e67e22; /* Ændrer farven ved hover */
+    background-color: #c799ad; /* Ændrer farven ved hover */
     transform: translateY(-2px); /* Løfter knappen lidt ved hover */
 }
 
 #openModal:active {
-    background-color: #d35400; /* Mørkere farve ved klik */
+    background-color: #c799ad; /* Mørkere farve ved klik */
     transform: translateY(1px); /* Tryk-effekt */
 }
 
@@ -143,4 +148,10 @@
     max-width: 100%; /* Gør billedet responsivt */
     height: auto; /* Bevarer billedets proportioner */
     border-radius: 8px;
+}
+
+.titel {
+    margin-top: 8vh;
+    color: black;
+    text-align: center;
 }

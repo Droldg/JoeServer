@@ -16,7 +16,7 @@ async function sendPostToServer(data) {
         } else {
             const error = await response.text();
             console.error('Failed to create post:', error);
-            alert(`Error: ${error}`);
+            
         }
     } catch (err) {
         console.error('An error occurred while sending the post:', err);
@@ -130,7 +130,7 @@ async function fetchAndDisplayPosts(socialID) {
         });
     } catch (err) {
         console.error('An error occurred while fetching posts:', err);
-        alert('Failed to load posts. Please try again later.');
+        
     }
 }
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const { poolPromise } = require('../database'); // Sørg for, at din databaseforbindelse er korrekt opsat
+const { poolPromise } = require('../database'); 
 const router = express.Router();
 
 // Endpoint til oprettelse af en post
