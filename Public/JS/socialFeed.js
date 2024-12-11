@@ -41,8 +41,8 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const title = document.getElementById('imageName').value.trim();
         const message = document.getElementById('imageMessage').value.trim();
         const userID = 'user123'; // Hardcoded bruger-ID for test
-        
-        const socialID = `post_${Date.now()}`; // Unikt ID baseret på timestamp
+
+        const socialID = "social1"; 
 
         const data = {
             socialID,
@@ -60,15 +60,16 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             await sendPostToServer(data);
 
             // Dynamisk visning af opslaget på siden
-            document.getElementById('billede').innerHTML = `
+            document.getElementById('container').innerHTML = `
                 
-            
+            <div id="billede" class="post">
                 <div class="post-content">
                     <img id="postMedia" src="${data.media}" alt="Uploaded Image" >
                     <h3>User Name</h3>
                     <h3 style="margin: 0;">${data.title}</h3>
                     <p style="margin: 5px 0;">${data.message}</p>
-                </div>`;
+                </div>
+            </div>`;
         } catch (err) {
             console.error(err);
             document.getElementById('response').innerText = 'An error occurred while uploading the image.';
@@ -114,12 +115,12 @@ async function fetchAndDisplayPosts(socialID) {
         const posts = await response.json();
 
         // Container for alle posts
-        const container = document.getElementById('billede');
+        const container = document.getElementById('container');
         container.innerHTML = ''; // Ryd eksisterende indhold
 
         posts.forEach((data) => {
             const postElement = `
-                <div class="post-content" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">
+                <div class="post-content">
                     <img id="postMedia" src="${data.postMedia}" alt="Uploaded Image" style="max-width: 300px; display: block; margin: 0 auto;">
                     <h3>User Name</h3>
                     <h3 style="margin: 0;">${data.postTitle}</h3>
@@ -134,5 +135,6 @@ async function fetchAndDisplayPosts(socialID) {
 }
 
 // Eksempel: Hent og vis posts med et specifikt socialID
-fetchAndDisplayPosts('post_1733946756820');
+fetchAndDisplayPosts('social1');
+
 
