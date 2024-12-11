@@ -3,7 +3,8 @@ const mssql = require('mssql');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const path = require('path'); // Til håndtering af stier
+const path = require('path'); // Importer path til at håndtere filstier
+
 const app = express();
 const config = require('./config');
 
@@ -25,12 +26,12 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// Server statiske filer (f.eks. HTML, CSS, JS) fra "Public"-mappen
+// Server statiske filer fra mappen "Public"
 app.use(express.static(path.join(__dirname, 'Public')));
 
-// Rute til forsiden (hvis der er en "index.html" i "Public")
+// Server forsiden (index.html) fra "Public/HTML"
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'Public', 'HTML', 'index.html'));
 });
 
 // Brug ruter
