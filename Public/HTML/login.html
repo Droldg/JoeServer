@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="../PNG/joeLogo.svg" alt="Joe & The Juice Logo" class="logo">
+        </div>
+        <h1>Welcome Back</h1>
+        <p>Log in to access your account!</p>
+        <form class="login-form">
+            <input type="email" placeholder="Email" class="input-field" required>
+            <input type="password" placeholder="Password" class="input-field" required>
+            <button type="submit" class="login-btn">Log In</button>
+        </form>
+        <p class="forgot-password"><a href="#">Forgot your password?</a></p>
+        <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+    <div id="cookie-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Cookie Settings</h2>
+            <p>We use cookies to ensure the best experience and functionality on our site. By accepting, you'll be able to fully access all features. Do you accept?</p>
+            <button id="accept-cookies">Accept</button>
+            <button id="decline-cookies">Decline</button>
+        </div>
+    </div>
+    <script src="../JS/login.js"></script>
+</body>
+</html>

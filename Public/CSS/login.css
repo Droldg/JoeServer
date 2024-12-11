@@ -1,0 +1,142 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    background-color: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Login container */
+.login-container {
+    background-color: #fff;
+    width: 360px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Logo */
+.logo-container {
+    margin-bottom: 15px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+    background-color: #f6c1d9;
+}
+
+/* Text styles */
+h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+p a {
+    text-decoration: none;
+    color: #f6c1d9;
+}
+
+p a:hover {
+    color: #e3a1bd;
+}
+
+/* Form styles */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-field {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    color: #333;
+}
+
+.input-field::placeholder {
+    color: #aaa;
+}
+
+/* Login button styling (match signup button) */
+.login-btn {
+    background-color: #f6c1d9; /* Lyserød baggrund */
+    border: none;
+    color: #fff; /* Hvid tekst */
+    font-size: 16px; /* Match skrifttypestørrelse */
+    padding: 12px; /* Match padding */
+    border-radius: 5px; /* Rundede hjørner */
+    cursor: pointer; /* Klikbart */
+    transition: background-color 0.3s ease; /* Glidende overgang */
+}
+
+.login-btn:hover {
+    background-color: #e3a1bd; /* Mørkere lyserød ved hover */
+}
+
+
+
+.forgot-password {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.modal-content button {
+    margin: 10px 5px;
+    padding: 10px 20px;
+    background-color: #f6c1d9;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #e3a1bd;
+}

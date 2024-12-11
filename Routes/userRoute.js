@@ -1,0 +1,154 @@
+const express = require('express'); 
+const mssql = require('mssql');
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+const { poolPromise } = require('../database');
+const router = express.Router();
+
+const sessions = {}; // Midlertidig sessionlagring
+const sessionTimeout = 3600000; // 1 time
+
+// Endpoint til registrering af bruger
+router.post('/signup', async (req, res) => {
+    const { name, email, password } = req.body;
+    try {
+        const pool = await poolPromise;
+
+        const existingUser = await pool.request()
+            .input('Email', mssql.NVarChar, email)
+            .query('SELECT COUNT(*) AS count FROM dbo.UserTable WHERE Email = @Email;');
+
+        if (existingUser.recordset[0].count > 0) {
+            return res.status(400).send('Email already registered.');
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await pool.request()
+            .input('Name', mssql.NVarChar, name)
+            .input('Email', mssql.NVarChar, email)
+            .input('Password', mssql.NVarChar, hashedPassword)
+            .query('INSERT INTO dbo.UserTable (Name, Email, Password) VALUES (@Name, @Email, @Password);');
+
+        res.status(201).send('User registered successfully.');
+    } catch (error) {
+        console.error('Error during signup:', error);
+        res.status(500).send('An error occurred during signup.');
+    }
+});
+
+// Login endpoint
+router.post('/login', async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    const { email, password } = req.body;
+
+    try {
+        const pool = await poolPromise;
+
+        const userResult = await pool.request()
+            .input('Email', mssql.NVarChar, email)
+            .query('SELECT * FROM dbo.UserTable WHERE Email = @Email;');
+
+        if (userResult.recordset.length === 0) {
+            return res.status(401).send('Invalid email or password.');
+        }
+
+        const user = userResult.recordset[0];
+        const isPasswordValid = await bcrypt.compare(password, user.Password);
+
+        if (!isPasswordValid) {
+            return res.status(401).send('Invalid email or password.');
+        }
+
+        // Generer session-ID
+        const sessionId = crypto.randomBytes(16).toString('hex');
+        sessions[sessionId] = { user: { id: user.UserID, name: user.Name }, createdAt: Date.now() };
+
+        // Sæt cookie
+        res.cookie('auth_session', sessionId, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 3600000, // 1 time
+            sameSite: 'None', // Tillad cross-site
+            path: '/',
+        });
+        
+
+        console.log('Cookies in login:', req.cookies);
+        console.log('Sessions in memory:', sessions);
+
+        res.status(200).send({ message: 'Login successful', user: { name: user.Name } });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).send('An error occurred during login.');
+    }
+});
+
+// Accept cookies endpoint
+router.post('/accept-cookies', (req, res) => {
+    console.log('Cookies received in accept-cookies:', req.cookies);
+
+    const sessionId = req.cookies.auth_session;
+
+    // Kontroller, om sessionId eksisterer og er gyldig
+    if (!sessionId || !sessions[sessionId]) {
+        console.log('Invalid session or session not authenticated');
+        return res.status(401).send('Invalid session or not authenticated.');
+    }
+
+    // Sæt cookies_accepted-cookien
+    res.cookie('cookies_accepted', 'true', {
+        httpOnly: false,
+        secure: true, // Sørg for HTTPS
+        maxAge: 3600000, // 1 time
+        sameSite: 'None', // Tillad cross-site
+        path: '/',
+    });
+    
+
+
+    console.log('Cookies in login:', req.cookies);
+    console.log('Sessions in memory:', sessions);
+
+
+    console.log('Cookies accepted and set');
+    res.status(200).send({ message: 'Cookies accepted successfully.' });
+});
+
+
+// Logout endpoint
+router.post('/logout', (req, res) => {
+    const sessionId = req.cookies.auth_session;
+    if (sessionId) {
+        delete sessions[sessionId]; // Fjern session
+    }
+    res.clearCookie('auth_session', { path: '/', secure: true, sameSite: 'Lax' });
+    res.clearCookie('cookies_accepted', { path: '/', secure: true, sameSite: 'Lax' });
+    res.status(200).send('Logged out successfully');
+});
+
+// Tjek brugerens session-status
+router.get('/check-auth', (req, res) => {
+    console.log('Cookies received in check-auth:', req.cookies);
+
+    const authSession = req.cookies?.auth_session;
+
+    if (!authSession || !sessions[authSession]) {
+        console.log('Auth session missing or invalid');
+        return res.status(401).send('Not authenticated');
+    }
+
+    const session = sessions[authSession];
+    if (Date.now() - session.createdAt > sessionTimeout) {
+        delete sessions[authSession];
+        console.log('Session expired');
+        return res.status(401).send('Session expired');
+    }
+
+    console.log('User authenticated:', session.user.name);
+    res.status(200).send({ message: 'Authenticated', name: session.user.name });
+});
+
+
+module.exports = router;

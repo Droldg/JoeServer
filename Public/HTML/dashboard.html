@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Open+Sans&family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/nav.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-content">
+            <img class="png" src="../PNG/joeLogo.svg" alt="">
+            <div class="nav-links">
+                <a href="#">HOME</a>
+                <a href="#">PROFILE</a>
+                <a href="#">SETTINGS</a>
+                <a href="./social.html">SOCIAL</a>
+            </div>
+        </div>
+        <div class="button">
+            <button id="logout-button" class="logout-btn">LOGOUT</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="feed-grid">
+            <div class="post-card">
+                <div class="post-image"></div>
+                <div class="post-content">
+                    <h3 class="post-title">Welcome to Your Dashboard</h3>
+                    <p id="welcome-message">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../JS/dashboard.js"></script>
+</body>
+</html>

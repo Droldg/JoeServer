@@ -1,48 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-}
-
-body {
-    background-color: #FFFFFF;
-    color: white;
-}
-
-.navbar {
-    background-color: #F6C1D9;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between; /* Holder logo og andre elementer i hver deres ende */
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.left-content {
-    display: flex;
-    align-items: center; /* Justerer logo og links vertikalt */
-    gap: 2rem; /* Giver plads mellem logo og links */
-}
-
-
-
-.nav-links {
-    display: flex;
-    gap: 2rem;;
-}
-
-.nav-links a {
-    color: black;
-    text-decoration: none;
-    font-size: 1rem;
-    
-}
 
 .main-content {
     margin-top: 80px;
@@ -93,21 +48,139 @@ body {
     font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
 
-    .feed-grid {
-        flex-direction: column; 
-        gap: 1rem; 
-    }
+/* Style for the SIGN UP/LOGIN button (reuse from logout button in dashboard.css) */
+.logout-btn {
+    background-color: #f6c1d9;
+    color: black;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-    .post-card {
-        flex: 1 1 100%; 
-        max-width: 100%;
-    }
+.logout-btn:hover {
+    background-color: #e3a1bd;
+    color: #fff;
 }
-.png{
-    width: 4vh;
+
+
+
+
+
+
+/* Overlay for dimming background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Mørkt overlay */
+    justify-content: center;
+    align-items: center;
 }
+
+/* Modal content styling */
+.modal-content {
+    background-color: #fff;
+    padding: 30px; /* Øget padding for mere luft */
+    border-radius: 10px;
+    text-align: center;
+    width: 500px; /* Øget bredde */
+    height: auto; /* Tilpas højde automatisk baseret på indhold */
+    position: relative;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    color: #333; /* Sæt tekstfarve til mørk grå */
+}
+
+.modal-content h2 {
+    font-size: 24px; /* Bevar den store skrifttype */
+    margin-bottom: 20px; /* Tilføjer mellemrum under overskriften */
+    color: #333; /* Sikrer tekstfarven stadig er mørk grå */
+}
+
+.modal-content p {
+    font-size: 16px; /* Juster evt. brødtekstens størrelse */
+    color: #333; /* Bevar farven */
+    line-height: 1.5; /* For bedre læsbarhed */
+    margin-bottom: 30px; /* Ekstra afstand før knapperne */
+}
+
+
+/* Close button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Modal image */
+.modal-image {
+    width: 80px;
+    margin: 20px auto;
+    display: block;
+}
+
+/* Buttons in modal */
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-btn {
+    display: inline-block; /* Gør linket til en blok som en knap */
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none; /* Fjern streg under linket */
+}
+
+.signup-btn {
+    background-color: #f6c1d9;
+    color: black;
+}
+
+.login-btn {
+    background-color: #f6f6f6;
+    color: black;
+}
+
+.modal-btn:hover {
+    opacity: 0.6; /* Gør knappen mørkere ved hover */
+}
+
+.button {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button:hover {
+    opacity: 0.8; /* Kun gennemsigtighed */
+    transition: opacity 0.3s ease; /* Glidende overgang */
+}
+
+.knap {
+    color: black; /* Sort tekstfarve */
+    text-decoration: none; /* Fjern understregning */
+    font-weight: bold; /* Gør teksten fed */
+    cursor: pointer; /* Angiver, at det er klikbart */
+    background: none; /* Fjern baggrund */
+    border: none; /* Fjern kant */
+    font-size: 16px; /* Matcher skrifttype med andre links */
+}
+
+.knap:hover {
+    color: #555; /* Mørkere grå ved hover */
+    text-decoration: none; /* Ingen understregning ved hover */
+}
+

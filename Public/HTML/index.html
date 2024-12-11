@@ -8,21 +8,39 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joe and the juice</title>
+    <title>Joe & the juice</title>
     <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/nav.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="left-content">
                     <img class="png" src="../PNG/joeLogo.svg" alt="">
                     <div class="nav-links">
-                    <a href="#">Home</a>
-                    <a href="#">Profile</a>
-                    <a href="#">Settings</a>
-                    <a href="#">Social</a>
+                    <a href="#">HOME</a>
+                    <a href="#">PROFILE</a>
+                    <a href="#">SETTINGS</a>
+                    <a href="./social.html">SOCIAL</a>
                 </div>
             </div>
-        
+            <div class="button">
+                <button id="login-signup-button" class="logout-btn" onclick="openModal()">SIGN UP/LOGIN</button>
+            </div>
+                    
+            
+            <!-- Modal -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>SIGN UP OR LOGIN</h2>
+                    <p>Login with your existing email and password, or sign up to join the family.</p>
+                    <div class="modal-buttons">
+                        <a href="signup.html" class="modal-btn signup-btn">SIGN UP</a>
+                        <a href="login.html" class="modal-btn login-btn">LOGIN</a>
+                    </div>
+                </div>
+            </div>
+            
         
     </nav>
 
@@ -58,6 +76,7 @@
             </div>
         </div>
     </main>
-
+ <!-- Link to JavaScript -->
+ <script src="../JS/index.js"></script>
 </body>
 </html>

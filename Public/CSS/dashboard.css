@@ -1,0 +1,73 @@
+/* Logout button styling */
+.logout-btn {
+    background-color: #f6c1d9;
+    color: black;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #e3a1bd;
+    color: #fff;
+}
+
+/* Nav bar logout button alignment */
+.navbar .button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+/* General dashboard layout (reuse from index.css) */
+.main-content {
+    margin-top: 80px;
+    padding: 2rem;
+}
+
+.feed-grid {
+    display: flex;
+    justify-content: center; 
+    align-items: stretch; 
+    flex-wrap: wrap; 
+    gap: 3rem; 
+    padding: 2rem; 
+}
+
+.post-card {
+    background-color: #242424;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.1s;
+    flex: 1 1 calc(30% - 2rem); 
+    max-width: 280px; 
+    box-sizing: border-box; 
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+}
+
+.post-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: #333;
+}
+
+.post-content {
+    padding: 1rem;
+}
+
+.post-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-description {
+    color: #999;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Open+Sans&family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joe & the juice</title>
+    <link rel="stylesheet" href="../CSS/socialFeed.css">
+    <link rel="stylesheet" href="../CSS/nav.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-content">
+                    <img class="png" src="../PNG/joeLogo.svg" alt="">
+                    <div class="nav-links">
+                    <a href="./index.html">HOME</a>
+                    <a href="#">PROFILE</a>
+                    <a href="#">SETTINGS</a>
+                    <a href="./social.html">SOCIAL</a>
+                </div>
+            </div>
+    
+    </nav>
+
+    <div class="siden">
+        <div class="back"><a href="../HTML/social.html"><h3>Back to maps</h3></a></div>
+        <!-- Social Feed Section -->
+
+        
+
+
+
+        <div class="feed-container">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="imageInput" accept="image/*" required />
+                <input type="text" id="imageName" placeholder="Image Name" required />
+                <textarea id="imageMessage" placeholder="Image Description" required></textarea>
+                <button type="submit">Upload</button>
+            </form>
+            <div id="response"></div>
+            
+            <div id="billede" class="post">
+                <img src="../PNG/joeLogo.svg" alt="Post Image">
+                <div class="post-content">
+                    <h3>User Name</h3>
+                    <p>This is a sample post caption. #hashtag</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="../PNG/joeLogo.svg" alt="Post Image">
+                <div class="post-content">
+                    <h3>User Name</h3>
+                    <p>Another sample post caption. #inspiration</p>
+                </div>
+            </div>
+            <div class="post">
+                <img src="../PNG/joeLogo.svg" alt="Post Image">
+                <div class="post-content">
+                    <h3>User Name</h3>
+                    <p>Yet another sample post caption. #creative</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+ <script src="../JS/socialFeed.js"></script>
+
+</body>
+</html>

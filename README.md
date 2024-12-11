@@ -1,2 +1,0 @@
-# JoeServer
-Eksamen tredje semester
