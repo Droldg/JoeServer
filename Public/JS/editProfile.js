@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('name').value = userDetails.name;
                 document.getElementById('email').value = userDetails.email;
             } else {
-                alert('Failed to fetch user details. Redirecting to login.');
-                window.location.href = 'dashboard.html';
+                alert('Failed to fetch user details. Redirecting to Dashboard.');
+                window.location.href = 'login.html';
             }
         } catch (err) {
             console.error('Error fetching user details:', err);
