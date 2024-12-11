@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 // CORS-konfiguration
 app.use(
     cors({
-        origin: true, // Tillader alle oprindelser under udvikling
+        origin: ['https://hait-joe.live'], // Tillad kun din produktions-URL
         credentials: true, // Sørger for, at cookies sendes og modtages
     })
 );
@@ -43,8 +43,21 @@ app.get('/', (req, res) => {
 const userRoutes = require('./Routes/userRoute');
 app.use('/api', userRoutes);
 
+
+// Fejl-håndtering for 404 (siden ikke fundet)
+app.use((req, res, next) => {
+    res.status(404).send('Siden blev ikke fundet.');
+});
+
+// Generel fejlhåndtering
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Noget gik galt på serveren.');
+});
+
+
 // Start HTTP-serveren
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Dynamisk port eller 3000 som fallback
 app.listen(PORT, () => {
     console.log(`Server kører på http://localhost:${PORT}`);
 });
