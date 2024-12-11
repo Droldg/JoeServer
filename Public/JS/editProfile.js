@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Hent brugeroplysninger og udfyld formularen
     async function fetchUserDetails() {
         try {
-            const response = await fetch('/api/edit-profile', {
+            const response = await fetch('https://hait-joe.live/api/edit-profile', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const password = document.getElementById('password').value.trim();
 
         try {
-            const response = await fetch('/api/edit-profile', {
+            const response = await fetch('https://hait-joe.live/api/edit-profile', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
