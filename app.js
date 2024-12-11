@@ -3,6 +3,7 @@ const mssql = require('mssql');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const path = require('path'); // Til håndtering af stier
 const app = express();
 const config = require('./config');
 
@@ -23,6 +24,14 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Server statiske filer (f.eks. HTML, CSS, JS) fra "Public"-mappen
+app.use(express.static(path.join(__dirname, 'Public')));
+
+// Rute til forsiden (hvis der er en "index.html" i "Public")
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public', 'index.html'));
+});
 
 // Brug ruter
 const userRoutes = require('./Routes/userRoute');
