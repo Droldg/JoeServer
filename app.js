@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 // CORS-konfiguration
 app.use(
     cors({
-        //origin: ['https://hait-joe.live/'], // Tillad kun din produktions-URL
+        origin: ['https://hait-joe.live/'], // Tillad kun din produktions-URL
         credentials: true, // Sørger for, at cookies sendes og modtages
     })
 );
