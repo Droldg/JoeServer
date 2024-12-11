@@ -30,7 +30,7 @@ document.querySelector('.login-form').addEventListener('submit', async (event) =
         if (!document.cookie.includes('cookies_accepted=true')) {
             showCookieModal(); // Vis modal, hvis cookies ikke er accepteret
         } else {
-            window.location.href = '../HTML/dashboard.html'; // Videre til dashboard
+            window.location.href = '/dashboard.html'; // Videre til dashboard
         }
     } catch (err) {
         if (err.message.includes('NetworkError')) {
