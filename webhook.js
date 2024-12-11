@@ -5,7 +5,7 @@ const crypto = require('crypto');
 
 const app = express();
 const PORT = 3001; // Port for webhook server
-const WEBHOOK_SECRET = 'my_secret_key';
+const WEBHOOK_SECRET = 'my_secret_key'; // Secret key for HMAC verification
 
 // Middleware for raw body parsing
 app.use(
