@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 // CORS-konfiguration
 app.use(
     cors({
-        origin: ['https://hait-joe.live/'], // Tillad kun din produktions-URL
+        // origin: ['https://hait-joe.live/'], // Tillad kun din produktions-URL
         credentials: true, // Sørger for, at cookies sendes og modtages
     })
 );
@@ -33,7 +33,7 @@ app.use('/CSS', express.static(path.join(__dirname, 'Public', 'CSS')));
 app.use('/JS', express.static(path.join(__dirname, 'Public', 'JS')));
 app.use('/PNG', express.static(path.join(__dirname, 'Public', 'PNG')));
 // Server HTML direkte fra "Public/HTML" uden /HTML i URL'en
-app.use('/', express.static(path.join(__dirname, 'Public', 'HTML')));
+app.use(express.static(path.join(__dirname, 'Public', 'HTML')));
 
 
 // Server forsiden (index.html) fra "Public/HTML"
