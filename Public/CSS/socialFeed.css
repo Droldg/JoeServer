@@ -28,6 +28,7 @@
 .post-content h3 {
     margin: 0 0 10px;
     font-size: 18px;
+    color: black;
 }
 
 .post-content p {
@@ -129,4 +130,12 @@
 #openModal:active {
     background-color: #d35400; /* Mørkere farve ved klik */
     transform: translateY(1px); /* Tryk-effekt */
+}
+
+
+#postMedia {
+    max-width: 300px;
+    border: 1px solid #ccc;
+    display: block;
+    margin: 0 auto;
 }

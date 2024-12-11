@@ -41,6 +41,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const title = document.getElementById('imageName').value.trim();
         const message = document.getElementById('imageMessage').value.trim();
         const userID = 'user123'; // Hardcoded bruger-ID for test
+        
         const socialID = `post_${Date.now()}`; // Unikt ID baseret på timestamp
 
         const data = {
@@ -60,12 +61,13 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
 
             // Dynamisk visning af opslaget på siden
             document.getElementById('billede').innerHTML = `
-                <div style="margin-top: 20px;">
-                    <img src="${data.media}" alt="Uploaded Image" style="max-width: 300px; border: 1px solid #ccc; display: block; margin: 0 auto;">
-                    <div class="post-content" style="margin-top: 10px;">
-                        <h3 style="margin: 0;">${data.title}</h3>
-                        <p style="margin: 5px 0;">${data.message}</p>
-                    </div>
+                
+            
+                <div class="post-content">
+                    <img id="postMedia" src="${data.media}" alt="Uploaded Image" >
+                    <h3>User Name</h3>
+                    <h3 style="margin: 0;">${data.title}</h3>
+                    <p style="margin: 5px 0;">${data.message}</p>
                 </div>`;
         } catch (err) {
             console.error(err);
@@ -99,3 +101,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+
+async function fetchAndDisplayPosts(socialID) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/posts/${socialID}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
+
+        const posts = await response.json();
+
+        // Container for alle posts
+        const container = document.getElementById('billede');
+        container.innerHTML = ''; // Ryd eksisterende indhold
+
+        posts.forEach((data) => {
+            const postElement = `
+                <div class="post-content" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">
+                    <img id="postMedia" src="${data.postMedia}" alt="Uploaded Image" style="max-width: 300px; display: block; margin: 0 auto;">
+                    <h3>User Name</h3>
+                    <h3 style="margin: 0;">${data.postTitle}</h3>
+                    <p style="margin: 5px 0;">${data.postCaption}</p>
+                </div>`;
+            container.innerHTML += postElement;
+        });
+    } catch (err) {
+        console.error('An error occurred while fetching posts:', err);
+        alert('Failed to load posts. Please try again later.');
+    }
+}
+
+// Eksempel: Hent og vis posts med et specifikt socialID
+fetchAndDisplayPosts('post_1733946756820');
+
