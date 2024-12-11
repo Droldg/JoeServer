@@ -60,3 +60,26 @@ uploadForm.addEventListener('submit', async (event) => {
 
     reader.readAsDataURL(file); // Read the file as a Base64 data URL
 });
+
+
+
+
+// Modal functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('uploadModal');
+    const openModalBtn = document.getElementById('openModal');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    // Åben modal, når knappen klikkes
+    openModalBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+
+    // Luk modal, når brugeren klikker uden for indholdet
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});

@@ -43,6 +43,9 @@ app.get('/', (req, res) => {
 const userRoutes = require('./Routes/userRoute');
 app.use('/api', userRoutes);
 
+const socialRoutes = require('./Routes/socialRoute');
+app.use('/api', socialRoutes);
+
 
 // Fejl-håndtering for 404 (siden ikke fundet)
 app.use((req, res, next) => {
