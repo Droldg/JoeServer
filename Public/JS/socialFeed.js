@@ -180,5 +180,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Error fetching user details:', err);
         }
     };
-    fetchUserDetails()
+    checkLogin();
 });
