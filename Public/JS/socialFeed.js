@@ -87,7 +87,6 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             title,
             message,
             media: imageAsBase64,
-            fileName: file.name // Tilføj filnavnet til data
         };
 
         // Debugging
@@ -163,7 +162,7 @@ async function fetchAndDisplayPosts(socialID) {
                     <h2>${post.userID}</h2>
                     <h4>${post.postTitle}</h4>
                     <p>${post.postCaption}</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                         <button class="like-button" style="flex: 1; margin-right: 5px;">Like</button>
                         <button class="comment-button" style="flex: 1;">Comment</button>
                     </div>
