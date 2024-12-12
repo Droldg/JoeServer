@@ -4,6 +4,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path'); // Importer path til at håndtere filstier
+const sessions = require('./session'); // Delte sessions
+
 
 const app = express();
 const config = require('./config');
@@ -18,7 +20,7 @@ app.use(morgan('dev'));
 // CORS-konfiguration
 app.use(
     cors({
-        // origin: ['https://hait-joe.live/'], // Tillad kun din produktions-URL
+        origin: ['https://hait-joe.live/'], // Tillad kun din produktions-URL
         credentials: true, // Sørger for, at cookies sendes og modtages
     })
 );
