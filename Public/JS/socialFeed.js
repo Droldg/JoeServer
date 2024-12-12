@@ -190,11 +190,7 @@ async function fetchUserID() {
 }
 
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const userID = await fetchUserID();
-    console.log(userID);
-    
-});
+
 
 
 
