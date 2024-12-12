@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(result)
                 document.getElementById('welcome-message').textContent = `Welcome back, ${result.name}!`;
             } else {
-                alert('You are not logged in! Redirecting to login page...');
-                window.location.href = 'login.html';
+                console.log('You are not logged in! Redirecting to login page...');
+                
             }
         } catch (err) {
             console.error('Error checking login status:', err);
