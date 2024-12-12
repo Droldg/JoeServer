@@ -12,7 +12,7 @@ async function sendPostToServer(data) {
         if (response.ok) {
             const result = await response.json();
             console.log('Post created successfully:', result.message);
-            alert('Post created successfully!');
+            
         } else {
             const error = await response.text();
             console.error('Failed to create post:', error);
@@ -110,7 +110,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
                     <h3 style="margin: 0;">${data.title}</h3>
                     <p style="margin: 5px 0;">${data.message}</p>
                 </div>
-            </div>`;
+            </div>                                          `;
         } catch (err) {
             console.error(err);
 
