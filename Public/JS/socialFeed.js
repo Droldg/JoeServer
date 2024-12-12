@@ -139,3 +139,46 @@ fetchAndDisplayPosts('social1');
 
 
 
+document.addEventListener('DOMContentLoaded', async () => {
+    async function checkLogin() {
+        try {
+            const response = await fetch('https://hait-joe.live/api/check-auth', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result)
+                document.getElementById('welcome-message').textContent = `Welcome back, ${result.name}!`;
+            } else {
+                alert('You are not logged in! Redirecting to login page...');
+                window.location.href = 'login.html';
+            }
+        } catch (err) {
+            console.error('Error checking login status:', err);
+        }
+    }
+
+    async function fetchUserDetails() {
+        try {
+            const response = await fetch('https://hait-joe.live/api/edit-profile', {
+                method: 'GET',
+                credentials: 'include', // Send cookies med
+            });
+
+            if (response.ok) {
+                const userDetails = await response.json();
+                // Udfyld formularfelterne med brugerens data
+                console.log(userDetails)
+
+            } else {
+                console.log('Failed to fetch user details. Redirecting to Dashboard.');
+                
+            }
+        } catch (err) {
+            console.error('Error fetching user details:', err);
+        }
+    };
+    fetchUserDetails()
+});
