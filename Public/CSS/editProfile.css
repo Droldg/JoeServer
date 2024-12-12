@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     display: flex;
@@ -9,25 +9,55 @@ body {
 }
 
 .edit-profile-container {
-    text-align: center;
     background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    width: 350px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .logo {
-    max-width: 150px;
+    max-width: 100px;
     margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .input-field {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.divider {
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .save-btn {
@@ -39,47 +69,24 @@ body {
     cursor: pointer;
     font-weight: bold;
     width: 100%;
+    margin-top: 10px;
+    font-size: 0.95rem;
 }
 
 .save-btn:hover {
     background-color: #e64444;
 }
 
+.back-link {
+    margin-top: 20px;
+}
+
 .back-link a {
     color: #555;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
 .back-link a:hover {
     text-decoration: underline;
 }
-
-.profile-container {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.profile-section, .password-section {
-    margin: 20px 0;
-}
-
-.password-section {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 20px 0;
-}
-
