@@ -53,7 +53,7 @@ function initMap() {
                     background-color: #fff; /* Hvid baggrund, hvis nødvendigt */
                     padding: 5px;
                   ">
-                    <strong>Adress:</strong><br>${location.address}
+                    <strong>Address:</strong><br>${location.address}
                   </div>`,
       });
   
