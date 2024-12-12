@@ -42,9 +42,9 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const message = document.getElementById('imageMessage').value.trim();
         
         let evt = await fetchUserDetails();
-        console.log(evt)
+        console.log(evt.userID)
         
-        const userID = 'user123'; // Hardcoded bruger-ID for test
+        const userID = evt.userID; // Hardcoded bruger-ID for test
 
         const socialID = "social1"; 
 
