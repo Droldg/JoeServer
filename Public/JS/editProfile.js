@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (response.ok) {
                 const userDetails = await response.json();
                 // Udfyld formularfelterne med brugerens data
-                document.getElementById('name').value = userDetails.Name;
-                document.getElementById('email').value = userDetails.Email;
+                document.getElementById('name').value = userDetails.name; // Ændret til små bogstaver
+                document.getElementById('email').value = userDetails.email; // Ændret til små bogstaver
             } else {
                 alert('Failed to fetch user details. Redirecting to Dashboard.');
                 window.location.href = 'dashboard.html';
@@ -50,9 +50,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Error updating profile:', err);
         }
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
+    // Håndter profilbillede-upload
     const profilePictureInput = document.getElementById('profile-picture-input');
     const profilePicturePreview = document.getElementById('profile-picture-preview');
     const uploadButton = document.getElementById('upload-profile-picture-button');
