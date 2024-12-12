@@ -1,9 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { poolPromise } = require('../database');
+const sessions = require('../session'); // Importér det delte sessions-objekt
 const router = express.Router();
-
-const sessions = {}; // Midlertidig sessionlagring fra userRoute (del evt. sessions herfra).
 
 // Hent brugeroplysninger
 router.get('/', async (req, res) => {
