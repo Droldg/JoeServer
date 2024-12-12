@@ -40,9 +40,12 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const imageAsBase64 = reader.result; // Base64-streng
         const title = document.getElementById('imageName').value.trim();
         const message = document.getElementById('imageMessage').value.trim();
-        const userID = 'user123'; // Hardcoded bruger-ID for test
+        
         let evt = await fetchUserDetails();
         console.log(evt)
+        
+        const userID = 'user123'; // Hardcoded bruger-ID for test
+
         const socialID = "social1"; 
 
         const data = {
