@@ -7,36 +7,41 @@
     <link rel="stylesheet" href="../CSS/editProfile.css">
 </head>
 <body>
-    <div class="profile-picture-section">
-        <h2>Update Profile Picture</h2>
-        <input type="file" id="profile-picture-input" accept="image/*">
-        <div id="profile-picture-preview-container">
-            <img id="profile-picture-preview" alt="Profile Picture Preview" />
-        </div>
-        <button id="upload-profile-picture-button">Upload Picture</button>
-    </div>    
-    <div class="edit-profile-container">
-        <img src="../PNG/joeLogo.svg" alt="Logo" class="logo">
-        <h1>Edit Your Profile</h1>
-        <form id="edit-profile-form">
-            <div class="input-group">
-                <label for="name">Name</label>
-                <input id="name" type="text" class="input-field" disabled>
+    <div class="container">
+        <div class="profile-picture-container">
+            <h1>Update Profile Picture</h1>
+            <div class="picture-section">
+                <input type="file" id="profile-picture-input" accept="image/*">
+                <div id="profile-picture-preview-container">
+                    <img id="profile-picture-preview" alt="Profile Picture Preview" />
+                </div>
+                <button id="upload-profile-picture-button" class="upload-btn">Upload Picture</button>
             </div>
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input id="email" type="email" class="input-field" disabled>
+        </div>    
+
+        <div class="edit-profile-container">
+            <img src="../PNG/joeLogo.svg" alt="Logo" class="logo">
+            <h1>Edit Your Profile</h1>
+            <form id="edit-profile-form">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="input-field" disabled>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" class="input-field" disabled>
+                </div>
+                <div class="divider"></div>
+                <h2>Change Your Password</h2>
+                <div class="input-group">
+                    <label for="password">New Password</label>
+                    <input id="password" type="password" class="input-field" placeholder="Enter new password">
+                </div>
+                <button type="submit" class="save-btn">Save Changes</button>
+            </form>
+            <div class="back-link">
+                <a href="dashboard.html">Back to Dashboard</a>
             </div>
-            <div class="divider"></div>
-            <h2>Change Your Password</h2>
-            <div class="input-group">
-                <label for="password">New Password</label>
-                <input id="password" type="password" class="input-field" placeholder="Enter new password">
-            </div>
-            <button type="submit" class="save-btn">Save Changes</button>
-        </form>
-        <div class="back-link">
-            <a href="dashboard.html">Back to Dashboard</a>
         </div>
     </div>
     <script src="../JS/editProfile.js"></script>
