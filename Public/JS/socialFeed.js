@@ -44,7 +44,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         let evt = await fetchUserDetails();
         console.log(evt.userID)
         
-        const userID = evt.userID; // Hardcoded bruger-ID for test
+        const userID = evt.user.userID; 
 
         const socialID = "social1"; 
 
