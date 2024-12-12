@@ -61,4 +61,27 @@ router.post('/', sessionValidator, async (req, res) => {
     }
 });
 
+router.post('/upload-profile-picture', sessionValidator, async (req, res) => {
+    const { profilePicture } = req.body;
+    const userId = req.user.id;
+
+    if (!profilePicture) {
+        return res.status(400).send('No profile picture provided.');
+    }
+
+    try {
+        const pool = await poolPromise;
+        await pool.request()
+            .input('UserID', mssql.Int, userId)
+            .input('ProfilePicture', mssql.NVarChar(mssql.MAX), profilePicture)
+            .query('UPDATE dbo.UserTable SET ProfilePicture = @ProfilePicture WHERE UserID = @UserID;');
+        
+        res.status(200).send('Profile picture updated successfully.');
+    } catch (error) {
+        console.error('Error updating profile picture:', error);
+        res.status(500).send('An error occurred while updating profile picture.');
+    }
+});
+
+
 module.exports = router;

@@ -90,3 +90,35 @@ h2 {
 .back-link a:hover {
     text-decoration: underline;
 }
+
+.profile-picture-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#profile-picture-preview-container {
+    margin: 10px 0;
+    text-align: center;
+}
+
+#profile-picture-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+#upload-profile-picture-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#upload-profile-picture-button:hover {
+    background-color: #45a049;
+}
