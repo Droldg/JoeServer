@@ -7,6 +7,28 @@ function closeModal() {
     document.getElementById('imageInput').value = '';
     document.getElementById('imageName').value = '';
     document.getElementById('imageMessage').value = '';
+
+    // Opdater upload-knappens udseende
+    const uploadButton = document.getElementById('uploadButton');
+    uploadButton.textContent = 'Upload';
+    uploadButton.disabled = false;
+    uploadButton.style.backgroundColor = '#007BFF';
+
+    // Fjern visning af filnavn
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+    if (fileNameDisplay) fileNameDisplay.textContent = '';
+}
+
+// Funktion til at vise det valgte filnavn
+function updateFileNameDisplay() {
+    const fileInput = document.getElementById('imageInput');
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+    if (fileInput.files.length > 0) {
+        fileNameDisplay.textContent = `Selected file: ${fileInput.files[0].name}`;
+    } else {
+        fileNameDisplay.textContent = '';
+    }
 }
 
 // Funktion til at sende data til serveren
@@ -44,6 +66,11 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         return;
     }
 
+    const uploadButton = document.getElementById('uploadButton');
+    uploadButton.textContent = 'Uploading...';
+    uploadButton.disabled = true;
+    uploadButton.style.backgroundColor = '#ccc';
+
     const reader = new FileReader();
     reader.onload = async function () {
         const imageAsBase64 = reader.result; // Base64-streng
@@ -60,6 +87,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             title,
             message,
             media: imageAsBase64,
+            fileName: file.name // Tilføj filnavnet til data
         };
 
         // Debugging
@@ -77,6 +105,11 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             fetchAndDisplayPosts(socialID);
         } catch (err) {
             console.error(err);
+        } finally {
+            // Gendan upload-knappen uanset resultat
+            uploadButton.textContent = 'Upload';
+            uploadButton.disabled = false;
+            uploadButton.style.backgroundColor = '#007BFF';
         }
     };
 
@@ -103,6 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
     });
+
+    // Lyt efter ændringer i filinput
+    const fileInput = document.getElementById('imageInput');
+    fileInput.addEventListener('change', updateFileNameDisplay);
 });
 
 // Funktion til at hente og vise posts
@@ -126,6 +163,7 @@ async function fetchAndDisplayPosts(socialID) {
                     <h2>${post.userID}</h2>
                     <h4>${post.postTitle}</h4>
                     <p>${post.postCaption}</p>
+                    <p><strong>File Name:</strong> ${post.fileName}</p>
                 </div>`;
             container.innerHTML += postHTML;
         });
