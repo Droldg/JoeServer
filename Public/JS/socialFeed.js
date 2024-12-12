@@ -41,7 +41,8 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const title = document.getElementById('imageName').value.trim();
         const message = document.getElementById('imageMessage').value.trim();
         const userID = 'user123'; // Hardcoded bruger-ID for test
-
+        let evt = await fetchUserDetails();
+        console.log(evt)
         const socialID = "social1"; 
 
         const data = {
@@ -156,21 +157,13 @@ async function fetchUserDetails() {
         const user = await response.json();
 
        
-        console.log(user)
+        //console.log(user)
 
     } catch (error) {
         console.error('An error occurred while fetching user details:', error);
         console.log('Failed to load user details. Please try again.');
     }
 }
-
-
-
-
-
-
-
-
 
 
 
