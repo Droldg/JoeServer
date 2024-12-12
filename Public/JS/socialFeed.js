@@ -1,5 +1,3 @@
-const { use } = require("../../Routes/socialRoute");
-
 // Funktion til at sende data til serveren
 async function sendPostToServer(data) {
     try {
@@ -183,7 +181,6 @@ async function fetchUserID() {
         }
 
         const user = await response.json();
-        console.log(user)
         console.log('Fetched User:', user.Us); // Debugging
         return user.userID; // Sørg for, at userID returneres fra backend
     } catch (error) {
@@ -193,6 +190,12 @@ async function fetchUserID() {
 }
 
 
+document.addEventListener('DOMContentLoaded', async () => {
+    const userID = await fetchUserID();
+    console.log(userID);
+    
+});
+
 
 
 
@@ -200,4 +203,5 @@ async function fetchUserID() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchUserDetails();
 
+    
 });
