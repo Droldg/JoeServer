@@ -106,14 +106,14 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             <div id="billede" class="post">
                 <div class="post-content">
                     <img id="postMedia" src="${data.media}" alt="Uploaded Image" >
-                    <h3>User Name</h3>
+                    <h3>${data.userID}</h3>
                     <h3 style="margin: 0;">${data.title}</h3>
                     <p style="margin: 5px 0;">${data.message}</p>
                 </div>
             </div>`;
         } catch (err) {
             console.error(err);
-            document.getElementById('response').innerText = 'An error occurred while uploading the image.';
+
         }
     };
 
