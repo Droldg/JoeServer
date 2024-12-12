@@ -139,41 +139,33 @@ fetchAndDisplayPosts('social1');
 
 
 
-document.addEventListener('DOMContentLoaded', async () => {
-    
-    async function fetchUserDetails() {
-        try {
-            // Definer endpoint-URL
-            const endpoint = '/'; // Skift denne til den korrekte URL, hvis nødvendigt.
-    
-            // Send GET-forespørgsel til serveren
-            const response = await fetch(endpoint, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include', // Medtager cookies til sessionvalidering
-            });
-    
-            // Håndter serverens svar
-            if (!response.ok) {
-                console.error(`Error: ${response.status} - ${response.statusText}`);
-                return;
-            }
-    
-            // Parse JSON-resultatet
-            const data = await response.json();
-    
-            // Log resultatet til konsollen
-            console.log('User Details:', data);
-        } catch (error) {
-            // Håndter eventuelle fejl
-            console.error('Error fetching user details:', error);
-        }
-    }
-    
-    // Kald funktionen (kan tilføjes til en knap eller indlæses på siden)
-    fetchUserDetails();
-    
+async function fetchUserDetails() {
+    try {
+        const response = await fetch('https://hait-joe.live/api/user', {
+            method: 'GET',
+            credentials: 'include', // Inkluder cookies for session validering
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
+        if (!response.ok) {
+            throw new Error(`Failed to fetch user details: ${response.statusText}`);
+        }
+
+        const user = await response.json();
+
+        // Opdater DOM med brugeroplysninger
+        document.getElementById('userName').textContent = user.Name || 'Unknown';
+        document.getElementById('userEmail').textContent = user.Email || 'Unknown';
+
+    } catch (error) {
+        console.error('An error occurred while fetching user details:', error);
+        alert('Failed to load user details. Please try again.');
+    }
+}
+
+// Kald funktionen, når siden loader
+document.addEventListener('DOMContentLoaded', () => {
+    fetchUserDetails();
 });
