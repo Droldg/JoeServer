@@ -26,7 +26,7 @@ app.use(
 );
 
 app.use(express.json({ limit: '10mb' })); // Tillader op til 10 MB JSON
-app.use(express.urlencoded({ limit: '10mb', extended: true })); // Tillader op til 10 MB form-data
+app.use(express.urlencoded({ limit: '100mb', extended: true })); // Tillader op til 10 MB form-data
 
 app.use(cookieParser());
 
