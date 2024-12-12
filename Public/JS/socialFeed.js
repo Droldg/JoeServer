@@ -171,6 +171,7 @@ async function fetchUserDetails() {
 
        
         //console.log(user)
+        return user;
 
     } catch (error) {
         console.error('An error occurred while fetching user details:', error);
