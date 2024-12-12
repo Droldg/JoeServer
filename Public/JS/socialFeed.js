@@ -90,7 +90,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         };
 
         // Debugging
-        console.log('UserID:', evt);
+        console.log('UserID:', evt.name);
         console.log('Data to be sent:', data);
 
         try {
