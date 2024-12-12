@@ -192,12 +192,8 @@ async function fetchUserID() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     const userID = await fetchUserID();
-    if (userID) {
-        console.log(`Fetched userID: ${userID}`);
-        // Brug userID i din frontend, f.eks. til at vise brugerens posts eller profiloplysninger
-    } else {
-        console.log('Failed to load user ID. Please log in.');
-    }
+    console.log(userID);
+    
 });
 
 
