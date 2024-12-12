@@ -78,7 +78,8 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const message = document.getElementById('imageMessage').value.trim();
 
         let evt = await fetchUserDetails();
-        const userID = evt.userID;
+        const userID = evt.name;
+        
         const socialID = "social1";
 
         const data = {
