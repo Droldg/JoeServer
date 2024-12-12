@@ -80,7 +80,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         let evt = await fetchUserDetails();
        
         
-        const userID = evt.user.userID; 
+        const userID = evt.user; 
 
         const socialID = "social1"; 
 
@@ -96,7 +96,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         console.log('Data to be sent:', data);
 
         try {
-            console.log(evt.userID)
+            console.log(userID)
             // Send data til serveren
             await sendPostToServer(data);
 
