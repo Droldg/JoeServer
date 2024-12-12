@@ -170,7 +170,7 @@ async function fetchUserID() {
     try {
         const response = await fetch('https://hait-joe.live/api/edit-profile', {
             method: 'GET',
-            credentials: 'include', // Inkluder cookies til session validering
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -180,13 +180,12 @@ async function fetchUserID() {
             throw new Error(`Failed to fetch user ID: ${response.statusText}`);
         }
 
-        const data = await response.json();
-        console.log('User ID:', data.userID);
-
-        return data.userID; // Returnér userID for videre brug
+        const user = await response.json();
+        console.log('Fetched User:', user); // Debugging
+        return user.userID; // Sørg for, at userID returneres fra backend
     } catch (error) {
-        console.error('An error occurred while fetching user ID:', error);
-        return null; // Returnér null ved fejl
+        console.error('Error fetching user ID:', error);
+        return null;
     }
 }
 
