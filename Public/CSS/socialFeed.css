@@ -220,3 +220,35 @@
     font-style: italic;
     color: #555;
 }
+
+
+.like-button,
+.comment-button {
+    background-color: #f39c12; /* Primær farve */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.like-button:hover,
+.comment-button:hover {
+    background-color: #e67e22; /* Mørkere farve ved hover */
+    transform: translateY(-2px); /* Løft knappen ved hover */
+}
+
+.like-button:active,
+.comment-button:active {
+    background-color: #d35400; /* Mørkere farve ved klik */
+    transform: translateY(1px); /* Tryk-effekt ved klik */
+}
+
+.like-button {
+    margin-right: 10px; /* Tilpas afstand mellem knapperne */
+}
+
