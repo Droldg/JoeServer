@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log(`Fetched userID: ${userID}`);
         // Brug userID i din frontend, f.eks. til at vise brugerens posts eller profiloplysninger
     } else {
-        alert('Failed to load user ID. Please log in.');
+        console.log('Failed to load user ID. Please log in.');
     }
 });
 
