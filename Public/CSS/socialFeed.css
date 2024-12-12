@@ -215,3 +215,8 @@
     color: black;
     text-align: center;
 }
+
+#fileNameDisplay {
+    font-style: italic;
+    color: #555;
+}
