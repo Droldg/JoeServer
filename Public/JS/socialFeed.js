@@ -141,7 +141,7 @@ fetchAndDisplayPosts('social1');
 
 async function fetchUserDetails() {
     try {
-        const response = await fetch('https://hait-joe.live/api/edit-profile/sessionValidator', {
+        const response = await fetch('https://hait-joe.live/api/edit-profile', {
             method: 'GET',
             credentials: 'include', // Inkluder cookies for session validering
             headers: {
@@ -167,4 +167,17 @@ async function fetchUserDetails() {
 // Kald funktionen, når siden loader
 document.addEventListener('DOMContentLoaded', () => {
     fetchUserDetails();
+
+    odule.exports = (req, res, next) => {
+        const sessionId = req.cookies.auth_session;
+        console.log(sessionId)
+    
+        if (!sessionId || !sessions[sessionId]) {
+            return res.status(401).send('Not authenticated.');
+        }
+    
+        req.user = sessions[sessionId].user; // Gem brugerdata i request-objektet
+        next();
+    };
+    
 });
