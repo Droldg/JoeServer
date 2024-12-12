@@ -1,7 +1,7 @@
 // Funktion til at sende data til serveren
 async function sendPostToServer(data) {
     try {
-        const response = await fetch('http://localhost:3000/api/create-post', {
+        const response = await fetch('https://hait-joe.live/api/create-post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
