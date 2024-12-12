@@ -1,3 +1,14 @@
+// Funktion til at lukke modal
+function closeModal() {
+    const modal = document.getElementById('uploadModal');
+    modal.style.display = 'none';
+
+    // Ryd inputfelterne i modal
+    document.getElementById('imageInput').value = '';
+    document.getElementById('imageName').value = '';
+    document.getElementById('imageMessage').value = '';
+}
+
 // Funktion til at sende data til serveren
 async function sendPostToServer(data) {
     try {
@@ -12,53 +23,15 @@ async function sendPostToServer(data) {
         if (response.ok) {
             const result = await response.json();
             console.log('Post created successfully:', result.message);
-            
         } else {
             const error = await response.text();
             console.error('Failed to create post:', error);
-            
         }
     } catch (err) {
         console.error('An error occurred while sending the post:', err);
         alert('An error occurred while sending the post.');
     }
 }
-
-
-
-async function fetchAndDisplayPosts(socialID) {
-    try {
-        const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch posts: ${response.statusText}`);
-        }
-
-        const posts = await response.json();
-
-        // Container for posts
-        const container = document.getElementById('feed-container');
-        container.innerHTML = ''; // Ryd eksisterende indhold
-
-        posts.forEach((post) => {
-            const postHTML = `
-                <div class="post-content">
-                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
-                    <h2>User Name</h2>
-                    <h4>${post.postTitle}</h4>
-                    <p>${post.postCaption}</p>
-                </div>`;
-            container.innerHTML += postHTML;
-        });
-    } catch (err) {
-        console.error('An error occurred while fetching posts:', err);
-        
-    }
-}
-
-
-
-
-
 
 // Håndtering af formular-indsendelse
 document.getElementById('uploadForm').addEventListener('submit', async (event) => {
@@ -76,13 +49,10 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const imageAsBase64 = reader.result; // Base64-streng
         const title = document.getElementById('imageName').value.trim();
         const message = document.getElementById('imageMessage').value.trim();
-        
-        let evt = await fetchUserDetails();
-       
-        
-        const userID = evt.userID;
 
-        const socialID = "social1"; 
+        let evt = await fetchUserDetails();
+        const userID = evt.userID;
+        const socialID = "social1";
 
         const data = {
             socialID,
@@ -93,28 +63,20 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         };
 
         // Debugging
-        console.log(userID)
+        console.log('UserID:', userID);
         console.log('Data to be sent:', data);
 
         try {
-            console.log(userID)
             // Send data til serveren
             await sendPostToServer(data);
 
-            // Dynamisk visning af opslaget på siden
-            document.getElementById('feed-container').innerHTML = `
-                
-            <div id="billede" class="post">
-                <div class="post-content">
-                    <img id="postMedia" src="${data.media}" alt="Uploaded Image" >
-                    <h3>${data.userID}</h3>
-                    <h3 style="margin: 0;">${data.title}</h3>
-                    <p style="margin: 5px 0;">${data.message}</p>
-                </div>
-            </div>                                          `;
+            // Luk modal
+            closeModal();
+
+            // Opdater feed
+            fetchAndDisplayPosts(socialID);
         } catch (err) {
             console.error(err);
-
         }
     };
 
@@ -133,27 +95,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Luk modal, når brugeren klikker på "×"
-    closeModalBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+    closeModalBtn.addEventListener('click', closeModal);
 
     // Luk modal, når brugeren klikker uden for modal-indholdet
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
-            modal.style.display = 'none';
+            closeModal();
         }
     });
 });
 
+// Funktion til at hente og vise posts
+async function fetchAndDisplayPosts(socialID) {
+    try {
+        const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
 
+        const posts = await response.json();
 
+        // Container for posts
+        const container = document.getElementById('feed-container');
+        container.innerHTML = ''; // Ryd eksisterende indhold
 
+        posts.forEach((post) => {
+            const postHTML = `
+                <div class="post-content">
+                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
+                    <h2>${post.userID}</h2>
+                    <h4>${post.postTitle}</h4>
+                    <p>${post.postCaption}</p>
+                </div>`;
+            container.innerHTML += postHTML;
+        });
+    } catch (err) {
+        console.error('An error occurred while fetching posts:', err);
+    }
+}
 
 // Eksempel: Hent posts med et specifikt socialID
 fetchAndDisplayPosts('social1');
 
-
-
+// Funktion til at hente brugeroplysninger
 async function fetchUserDetails() {
     try {
         const response = await fetch('https://hait-joe.live/api/edit-profile', {
@@ -169,22 +153,8 @@ async function fetchUserDetails() {
         }
 
         const user = await response.json();
-
-       
-        //console.log(user)
         return user;
-
     } catch (error) {
         console.error('An error occurred while fetching user details:', error);
-        console.log('Failed to load user details. Please try again.');
     }
 }
-
-
-
-// Kald funktionen, når siden loader
-document.addEventListener('DOMContentLoaded', () => {
-    fetchUserDetails();
-
-    
-});
