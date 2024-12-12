@@ -168,7 +168,7 @@ async function fetchUserDetails() {
 
 async function fetchUserID() {
     try {
-        const response = await fetch('https://hait-joe.live/api/user-id', {
+        const response = await fetch('https://hait-joe.live/api/edit-profile', {
             method: 'GET',
             credentials: 'include', // Inkluder cookies til session validering
             headers: {
