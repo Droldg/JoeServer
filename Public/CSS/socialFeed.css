@@ -1,7 +1,7 @@
 .feed-container {
     margin-top: 9vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
 
 }
