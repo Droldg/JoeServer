@@ -181,7 +181,7 @@ async function fetchUserID() {
         }
 
         const user = await response.json();
-        console.log('Fetched User:', user.Us); // Debugging
+        console.log('Fetched User:', user); // Debugging
         return user.userID; // Sørg for, at userID returneres fra backend
     } catch (error) {
         console.error('Error fetching user ID:', error);
