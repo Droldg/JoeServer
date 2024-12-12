@@ -24,6 +24,42 @@ async function sendPostToServer(data) {
     }
 }
 
+
+
+async function fetchAndDisplayPosts(socialID) {
+    try {
+        const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
+
+        const posts = await response.json();
+
+        // Container for posts
+        const container = document.getElementById('feed-container');
+        container.innerHTML = ''; // Ryd eksisterende indhold
+
+        posts.forEach((post) => {
+            const postHTML = `
+                <div class="post-content">
+                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
+                    <h2>User Name</h2>
+                    <h4>${post.postTitle}</h4>
+                    <p>${post.postCaption}</p>
+                </div>`;
+            container.innerHTML += postHTML;
+        });
+    } catch (err) {
+        console.error('An error occurred while fetching posts:', err);
+        
+    }
+}
+
+
+
+
+
+
 // Håndtering af formular-indsendelse
 document.getElementById('uploadForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -109,34 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-async function fetchAndDisplayPosts(socialID) {
-    try {
-        const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch posts: ${response.statusText}`);
-        }
 
-        const posts = await response.json();
-
-        // Container for posts
-        const container = document.getElementById('feed-container');
-        container.innerHTML = ''; // Ryd eksisterende indhold
-
-        posts.forEach((post) => {
-            const postHTML = `
-                <div class="post-content">
-                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
-                    <h2>User Name</h2>
-                    <h4>${post.postTitle}</h4>
-                    <p>${post.postCaption}</p>
-                </div>`;
-            container.innerHTML += postHTML;
-        });
-    } catch (err) {
-        console.error('An error occurred while fetching posts:', err);
-        
-    }
-}
 
 // Eksempel: Hent posts med et specifikt socialID
 fetchAndDisplayPosts('social1');
