@@ -87,7 +87,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             title,
             message,
             media: imageAsBase64,
-            fileName: file.name // Tilføj filnavnet til data
+            
         };
 
         // Debugging
@@ -160,10 +160,10 @@ async function fetchAndDisplayPosts(socialID) {
             const postHTML = `
                 <div class="post-content">
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
-                    <h2>${post.name}</h2>
+                    <h2>${post.userID}</h2>
                     <h4>${post.postTitle}</h4>
                     <p>${post.postCaption}</p>
-                    <p><strong>File Name:</strong> ${post.fileName}</p>
+                    
                 </div>`;
             container.innerHTML += postHTML;
         });
