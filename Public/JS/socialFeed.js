@@ -141,7 +141,7 @@ fetchAndDisplayPosts('social1');
 
 async function fetchUserDetails() {
     try {
-        const response = await fetch('https://hait-joe.live/api/editProfileRoute', {
+        const response = await fetch('https://hait-joe.live/api/edit-profile', {
             method: 'GET',
             credentials: 'include', // Inkluder cookies for session validering
             headers: {
