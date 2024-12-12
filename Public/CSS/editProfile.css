@@ -54,3 +54,32 @@ body {
 .back-link a:hover {
     text-decoration: underline;
 }
+
+.profile-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-section, .password-section {
+    margin: 20px 0;
+}
+
+.password-section {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
