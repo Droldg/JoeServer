@@ -78,7 +78,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const message = document.getElementById('imageMessage').value.trim();
 
         let evt = await fetchUserDetails();
-        const userID = evt.userID;
+        const userID = evt.name;
         const socialID = "social1";
 
         const data = {
@@ -160,7 +160,7 @@ async function fetchAndDisplayPosts(socialID) {
             const postHTML = `
                 <div class="post-content">
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
-                    <h2>${post.userID}</h2>
+                    <h2>${post.name}</h2>
                     <h4>${post.postTitle}</h4>
                     <p>${post.postCaption}</p>
                     <p><strong>File Name:</strong> ${post.fileName}</p>
