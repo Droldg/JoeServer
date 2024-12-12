@@ -11,13 +11,20 @@ router.get('/', sessionValidator, async (req, res) => {
 
         const result = await pool.request()
             .input('UserID', req.user.id) // Brug middleware-indsat bruger-ID
-            .query('SELECT Name, Email FROM dbo.UserTable WHERE UserID = @UserID;');
+            .query('SELECT UserID, Name, Email FROM dbo.UserTable WHERE UserID = @UserID;'); // Tilføj UserID til SELECT
 
         if (result.recordset.length === 0) {
             return res.status(404).send('User not found.');
         }
 
-        res.status(200).json(result.recordset[0]);
+        const user = result.recordset[0];
+
+        // Returnér UserID sammen med resten af data
+        res.status(200).json({
+            userID: user.UserID,
+            name: user.Name,
+            email: user.Email,
+        });
     } catch (error) {
         console.error('Error fetching user details:', error);
         res.status(500).send('An error occurred while fetching user details.');
