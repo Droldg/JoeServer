@@ -1,30 +1,23 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { poolPromise } = require('../database');
-const sessions = require('../session'); // Importér det delte sessions-objekt
+const sessionValidator = require('../middleware/sessionValidator');
 const router = express.Router();
 
 // Hent brugeroplysninger
-router.get('/', async (req, res) => {
-    const sessionId = req.cookies.auth_session;
-
-    if (!sessionId || !sessions[sessionId]) {
-        return res.status(401).send('Not authenticated.');
-    }
-
-    const userId = sessions[sessionId].user.id;
-
+router.get('/', sessionValidator, async (req, res) => {
     try {
         const pool = await poolPromise;
+
         const result = await pool.request()
-            .input('UserID', mssql.Int, userId)
+            .input('UserID', req.user.id) // Brug middleware-indsat bruger-ID
             .query('SELECT Name, Email FROM dbo.UserTable WHERE UserID = @UserID;');
 
         if (result.recordset.length === 0) {
             return res.status(404).send('User not found.');
         }
 
-        res.status(200).send(result.recordset[0]);
+        res.status(200).json(result.recordset[0]);
     } catch (error) {
         console.error('Error fetching user details:', error);
         res.status(500).send('An error occurred while fetching user details.');
@@ -32,15 +25,8 @@ router.get('/', async (req, res) => {
 });
 
 // Opdater brugeroplysninger
-router.post('/', async (req, res) => {
-    const sessionId = req.cookies.auth_session;
-
-    if (!sessionId || !sessions[sessionId]) {
-        return res.status(401).send('Not authenticated.');
-    }
-
+router.post('/', sessionValidator, async (req, res) => {
     const { name, email, password } = req.body;
-    const userId = sessions[sessionId].user.id;
 
     try {
         const pool = await poolPromise;
@@ -48,16 +34,16 @@ router.post('/', async (req, res) => {
         if (password) {
             const hashedPassword = await bcrypt.hash(password, 10);
             await pool.request()
-                .input('UserID', mssql.Int, userId)
-                .input('Name', mssql.NVarChar, name)
-                .input('Email', mssql.NVarChar, email)
-                .input('Password', mssql.NVarChar, hashedPassword)
+                .input('UserID', req.user.id) // Brug middleware-indsat bruger-ID
+                .input('Name', name)
+                .input('Email', email)
+                .input('Password', hashedPassword)
                 .query('UPDATE dbo.UserTable SET Name = @Name, Email = @Email, Password = @Password WHERE UserID = @UserID;');
         } else {
             await pool.request()
-                .input('UserID', mssql.Int, userId)
-                .input('Name', mssql.NVarChar, name)
-                .input('Email', mssql.NVarChar, email)
+                .input('UserID', req.user.id) // Brug middleware-indsat bruger-ID
+                .input('Name', name)
+                .input('Email', email)
                 .query('UPDATE dbo.UserTable SET Name = @Name, Email = @Email WHERE UserID = @UserID;');
         }
 

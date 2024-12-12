@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const { poolPromise } = require('../database');
 const sessions = require('../session'); // Importér det delte sessions-objekt
+const sessionValidator = require('../middleware/sessionValidator'); // Import sessionValidator middleware
+
 const router = express.Router();
 const sessionTimeout = 3600000; // 1 time
 
@@ -84,13 +86,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Accept cookies endpoint
-router.post('/accept-cookies', (req, res) => {
-    const sessionId = req.cookies.auth_session;
-
-    if (!sessionId || !sessions[sessionId]) {
-        return res.status(401).send('Invalid session or not authenticated.');
-    }
-
+router.post('/accept-cookies', sessionValidator, (req, res) => {
     res.cookie('cookies_accepted', 'true', {
         httpOnly: false,
         secure: true,
@@ -103,7 +99,7 @@ router.post('/accept-cookies', (req, res) => {
 });
 
 // Logout endpoint
-router.post('/logout', (req, res) => {
+router.post('/logout', sessionValidator, (req, res) => {
     const sessionId = req.cookies.auth_session;
     if (sessionId) {
         delete sessions[sessionId];
@@ -114,20 +110,8 @@ router.post('/logout', (req, res) => {
 });
 
 // Tjek brugerens session-status
-router.get('/check-auth', (req, res) => {
-    const authSession = req.cookies?.auth_session;
-
-    if (!authSession || !sessions[authSession]) {
-        return res.status(401).send('Not authenticated');
-    }
-
-    const session = sessions[authSession];
-    if (Date.now() - session.createdAt > sessionTimeout) {
-        delete sessions[authSession];
-        return res.status(401).send('Session expired');
-    }
-
-    res.status(200).send({ message: 'Authenticated', name: session.user.name });
+router.get('/check-auth', sessionValidator, (req, res) => {
+    res.status(200).send({ message: 'Authenticated', name: req.user.name });
 });
 
 module.exports = router;

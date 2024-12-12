@@ -4,13 +4,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const response = await fetch('https://hait-joe.live/api/edit-profile', {
                 method: 'GET',
-                credentials: 'include',
+                credentials: 'include', // Send cookies med
             });
 
             if (response.ok) {
                 const userDetails = await response.json();
-                document.getElementById('name').value = userDetails.name;
-                document.getElementById('email').value = userDetails.email;
+                // Udfyld formularfelterne med brugerens data
+                document.getElementById('name').value = userDetails.Name;
+                document.getElementById('email').value = userDetails.Email;
             } else {
                 alert('Failed to fetch user details. Redirecting to Dashboard.');
                 window.location.href = 'dashboard.html';
@@ -20,7 +21,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Udfyld formularen med brugerdata
     await fetchUserDetails();
 
     // Håndter form-indsendelse
