@@ -7,19 +7,25 @@
     <link rel="stylesheet" href="../CSS/editProfile.css">
 </head>
 <body>
-    <div class="edit-profile-container">
-        <div class="logo-container">
-            <img src="../PNG/joeLogo.svg" alt="Joe & The Juice Logo" class="logo">
-        </div>
+    <div class="profile-container">
         <h1>Edit Your Profile</h1>
         <form id="edit-profile-form">
-            <input type="text" id="name" placeholder="Name" class="input-field" required>
-            <input type="email" id="email" placeholder="Email" class="input-field" required>
-            <input type="password" id="password" placeholder="New Password (Optional)" class="input-field">
-            <button type="submit" class="save-btn">Save Changes</button>
+            <div class="profile-section">
+                <label for="name">Name:</label>
+                <input id="name" type="text" disabled>
+            </div>
+            <div class="profile-section">
+                <label for="email">Email:</label>
+                <input id="email" type="email" disabled>
+            </div>
+            <hr>
+            <div class="password-section">
+                <h2>Change Your Password</h2>
+                <label for="password">New Password:</label>
+                <input id="password" type="password" placeholder="Enter new password">
+            </div>
+            <button type="submit">Save Changes</button>
         </form>
-        <p class="back-link"><a href="dashboard.html">Back to Dashboard</a></p>
+        <a href="dashboard.html">Back to Dashboard</a>
     </div>
-    <script src="../JS/editProfile.js"></script>
-</body>
-</html>
+    
