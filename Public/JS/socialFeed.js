@@ -102,7 +102,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             await sendPostToServer(data);
 
             // Dynamisk visning af opslaget på siden
-            document.getElementById('container').innerHTML = `
+            document.getElementById('feed-container').innerHTML = `
                 
             <div id="billede" class="post">
                 <div class="post-content">
