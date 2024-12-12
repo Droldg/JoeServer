@@ -156,12 +156,11 @@ async function fetchUserDetails() {
         const user = await response.json();
 
         // Opdater DOM med brugeroplysninger
-        document.getElementById('userName').textContent = user.Name || 'Unknown';
-        document.getElementById('userEmail').textContent = user.Email || 'Unknown';
+        console.log(user)
 
     } catch (error) {
         console.error('An error occurred while fetching user details:', error);
-        alert('Failed to load user details. Please try again.');
+        console.log('Failed to load user details. Please try again.');
     }
 }
 
