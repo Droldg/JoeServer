@@ -48,6 +48,10 @@ app.use('/api', userRoutes);
 const socialRoutes = require('./Routes/socialRoute');
 app.use('/api', socialRoutes);
 
+const editProfileRoute = require('./Routes/editProfileRoute');
+app.use('/api/edit-profile', editProfileRoute);
+
+
 
 // Fejl-håndtering for 404 (siden ikke fundet)
 app.use((req, res, next) => {
