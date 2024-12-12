@@ -140,45 +140,40 @@ fetchAndDisplayPosts('social1');
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-    async function checkLogin() {
-        try {
-            const response = await fetch('https://hait-joe.live/api/check-auth', {
-                method: 'GET',
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log(result)
-                document.getElementById('welcome-message').textContent = `Welcome back, ${result.name}!`;
-            } else {
-                console.log('You are not logged in! Redirecting to login page...');
-                
-            }
-        } catch (err) {
-            console.error('Error checking login status:', err);
-        }
-    }
-
+    
     async function fetchUserDetails() {
         try {
-            const response = await fetch('https://hait-joe.live/api/edit-profile', {
+            // Definer endpoint-URL
+            const endpoint = '/'; // Skift denne til den korrekte URL, hvis nødvendigt.
+    
+            // Send GET-forespørgsel til serveren
+            const response = await fetch(endpoint, {
                 method: 'GET',
-                credentials: 'include', // Send cookies med
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include', // Medtager cookies til sessionvalidering
             });
-
-            if (response.ok) {
-                const userDetails = await response.json();
-                // Udfyld formularfelterne med brugerens data
-                console.log(userDetails)
-
-            } else {
-                console.log('Failed to fetch user details. Redirecting to Dashboard.');
-                
+    
+            // Håndter serverens svar
+            if (!response.ok) {
+                console.error(`Error: ${response.status} - ${response.statusText}`);
+                return;
             }
-        } catch (err) {
-            console.error('Error fetching user details:', err);
+    
+            // Parse JSON-resultatet
+            const data = await response.json();
+    
+            // Log resultatet til konsollen
+            console.log('User Details:', data);
+        } catch (error) {
+            // Håndter eventuelle fejl
+            console.error('Error fetching user details:', error);
         }
-    };
-    checkLogin();
+    }
+    
+    // Kald funktionen (kan tilføjes til en knap eller indlæses på siden)
+    fetchUserDetails();
+    
+
 });
