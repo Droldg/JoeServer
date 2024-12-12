@@ -176,15 +176,13 @@ async function fetchUserID() {
             },
         });
 
-        console.log('Raw Response:', response); // Log hele fetch-responsen
-
         if (!response.ok) {
             throw new Error(`Failed to fetch user ID: ${response.statusText}`);
         }
 
         const user = await response.json();
-        console.log('Fetched User:', user); // Log hele user-objektet
-        return user.userID; // Returnér userID
+        console.log('Fetched User:', user.Us); // Debugging
+        return user.userID; // Sørg for, at userID returneres fra backend
     } catch (error) {
         console.error('Error fetching user ID:', error);
         return null;
