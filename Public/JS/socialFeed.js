@@ -168,7 +168,7 @@ async function fetchUserDetails() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchUserDetails();
 
-    odule.exports = (req, res, next) => {
+    module.exports = (req, res, next) => {
         const sessionId = req.cookies.auth_session;
         console.log(sessionId)
     
