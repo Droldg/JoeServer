@@ -164,20 +164,49 @@ async function fetchUserDetails() {
     }
 }
 
+
+
+async function fetchUserID() {
+    try {
+        const response = await fetch('https://hait-joe.live/api/user-id', {
+            method: 'GET',
+            credentials: 'include', // Inkluder cookies til session validering
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch user ID: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('User ID:', data.userID);
+
+        return data.userID; // Returnér userID for videre brug
+    } catch (error) {
+        console.error('An error occurred while fetching user ID:', error);
+        return null; // Returnér null ved fejl
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const userID = await fetchUserID();
+    if (userID) {
+        console.log(`Fetched userID: ${userID}`);
+        // Brug userID i din frontend, f.eks. til at vise brugerens posts eller profiloplysninger
+    } else {
+        alert('Failed to load user ID. Please log in.');
+    }
+});
+
+
+
+
 // Kald funktionen, når siden loader
 document.addEventListener('DOMContentLoaded', () => {
     fetchUserDetails();
 
-    module.exports = (req, res, next) => {
-        const sessionId = req.cookies.auth_session;
-        console.log(sessionId)
-    
-        if (!sessionId || !sessions[sessionId]) {
-            return res.status(401).send('Not authenticated.');
-        }
-    
-        req.user = sessions[sessionId].user; // Gem brugerdata i request-objektet
-        next();
-    };
     
 });
