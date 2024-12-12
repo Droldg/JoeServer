@@ -80,7 +80,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         let evt = await fetchUserDetails();
        
         
-        const userID = evt.user; 
+        const userID = evt;
 
         const socialID = "social1"; 
 
