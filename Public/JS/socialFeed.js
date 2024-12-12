@@ -78,7 +78,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const message = document.getElementById('imageMessage').value.trim();
         
         let evt = await fetchUserDetails();
-        console.log(evt.userID)
+       
         
         const userID = evt.user.userID; 
 
@@ -96,6 +96,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         console.log('Data to be sent:', data);
 
         try {
+            console.log(evt.userID)
             // Send data til serveren
             await sendPostToServer(data);
 
