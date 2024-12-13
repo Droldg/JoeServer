@@ -136,7 +136,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         let evt = await fetchUserDetails();
         const userID = evt.name;
         
-        const socialID = "social1";
+        const socialID = "social001";
 
         const data = {
             socialID,
