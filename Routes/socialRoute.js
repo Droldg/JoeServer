@@ -40,27 +40,28 @@ router.get('/posts/:socialID', async (req, res) => {
     const { socialID } = req.params;
 
     try {
+        const tableName = `dbo.${socialID}`; // Dynamisk tabelnavn baseret på socialID
         const pool = await poolPromise;
 
-        console.log('Fetching posts for socialID:', socialID);
+        console.log(`Fetching posts from table: ${tableName}`);
+
+        const query = `
+            SELECT 
+                p.postTitle, 
+                p.postCaption, 
+                p.postLikes, 
+                p.postMedia, 
+                u.ProfilePicture, 
+                u.Name AS userID
+            FROM ${tableName} p
+            LEFT JOIN dbo.UserTable u ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR)
+        `;
 
         const result = await pool.request()
-            .input('SocialID', mssql.NVarChar, socialID)
-            .query(`
-                SELECT 
-                    p.postTitle, 
-                    p.postCaption, 
-                    p.postLikes, 
-                    p.postMedia, 
-                    u.ProfilePicture, 
-                    u.Name AS userID
-                FROM dbo.social001 p
-                LEFT JOIN dbo.UserTable u ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR)
-                WHERE p.socialID = @SocialID
-            `);
+            .query(query);
 
         if (!result.recordset.length) {
-            console.log('No posts found for socialID:', socialID);
+            console.log(`No posts found in table: ${tableName}`);
             return res.status(404).send('No posts found.');
         }
 
