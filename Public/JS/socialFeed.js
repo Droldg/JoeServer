@@ -145,7 +145,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
 
         let evt = await fetchUserDetails();
         const userID = evt.name;
-        console.log(evt)
+        
         
        
 
@@ -278,6 +278,7 @@ async function fetchUserDetails() {
         }
 
         const user = await response.json();
+        console.log(user)
         return user;
     } catch (error) {
         console.error('An error occurred while fetching user details:', error);
