@@ -75,6 +75,7 @@ router.get('/posts/:socialID', async (req, res) => {
 
 
 
+
 router.post('/like-post', async (req, res) => {
     const { postTitle } = req.body; // Brug postTitle i stedet for postID
 
