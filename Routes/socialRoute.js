@@ -78,14 +78,17 @@ router.get('/posts/:socialID', async (req, res) => {
 
 
 router.post('/like-post', async (req, res) => {
-    const { postTitle } = req.body; // Brug postTitle i stedet for postID
+    const { socialID, postTitle } = req.body; // Tilføjet socialID
 
     try {
         const pool = await poolPromise;
 
+        // Dynamisk tabelnavn baseret på socialID
+        const tableName = `dbo.${socialID}`;
+
         await pool.request()
             .input('PostTitle', postTitle)
-            .query('UPDATE dbo.social001 SET postLikes = postLikes + 1 WHERE postTitle = @PostTitle');
+            .query(`UPDATE ${tableName} SET postLikes = postLikes + 1 WHERE postTitle = @PostTitle`);
 
         res.status(200).send('Post liked successfully.');
     } catch (error) {
@@ -93,6 +96,7 @@ router.post('/like-post', async (req, res) => {
         res.status(500).send('An error occurred while liking the post.');
     }
 });
+
 
 
 
