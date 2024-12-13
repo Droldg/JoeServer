@@ -281,6 +281,6 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: black; /* Sort baggrund */
+    background-color: #f7c1d9; /* Sort baggrund */
     display: inline-block;
 }
