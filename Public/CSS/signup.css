@@ -11,15 +11,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Fuldsides layout */
+    height: 100vh; 
     color: #333;
 }
 
 /* Signup container */
 .signup-container {
     background-color: #fff; /* Hvid boks */
-    width: 360px; /* Fast bredde */
-    padding: 30px; /* Indre padding */
+    width: 360px; 
+    padding: 30px; 
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Let skygge */
     text-align: center;
@@ -27,26 +27,26 @@ body {
 
 /* Logo */
 .logo-container {
-    margin-bottom: 15px; /* Plads under logoet */
+    margin-bottom: 15px; 
 }
 
 .logo {
-    width: 50px; /* Mindre logo */
+    width: 50px; 
     height: 50px;
     margin: 0 auto;
     display: block;
-    border-radius: 50%; /* Cirkel baggrund */
-    background-color: #f6c1d9; /* Pink baggrund som placeholder */
+    border-radius: 50%; 
+    background-color: #f6c1d9; 
 }
 
 /* Text styles */
 h1 {
-    font-size: 20px; /* Mindre skrifttype */
+    font-size: 20px; 
     margin-bottom: 10px;
 }
 
 p {
-    font-size: 14px; /* Mindre skrift til undertekst */
+    font-size: 14px; 
     color: #666;
     margin-bottom: 20px;
 }
@@ -55,7 +55,7 @@ p {
 .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Ens afstand mellem felterne */
+    gap: 15px; 
 }
 
 .input-field {
@@ -85,21 +85,21 @@ p {
 }
 
 .signup-btn:hover {
-    background-color: #e3a1bd; /* Mørkere lyserød ved hover */
+    background-color: #e3a1bd; 
 }
 
 .signup-container p {
-    margin-top: 20px; /* Skubber teksten længere væk fra boksen */
-    font-size: 14px; /* Juster tekststørrelsen */
-    color: #666; /* Ensfarvet grå */
+    margin-top: 20px; 
+    font-size: 14px; 
+    color: #666; 
 }
 
 .signup-container p a {
-    text-decoration: none; /* Fjern stregen under linket */
-    color: #f6c1d9; /* Lyserød farve til link */
+    text-decoration: none; 
+    color: #f6c1d9; 
 }
 
 .signup-container p a:hover {
-    color: #e3a1bd; /* Mørkere lyserød ved hover */
+    color: #e3a1bd; 
 }
 

@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
         const sessionId = crypto.randomBytes(16).toString('hex');
         sessions[sessionId] = { user: { id: user.UserID, name: user.Name }, createdAt: Date.now() };
 
-        // Sæt cookie
+        // Sætter cookie
         res.cookie('auth_session', sessionId, {
             httpOnly: true,
             secure: true,
@@ -109,7 +109,7 @@ router.post('/logout', sessionValidator, (req, res) => {
     res.status(200).send('Logged out successfully');
 });
 
-// Tjek brugerens session-status
+// Tjekker brugerens session-status
 router.get('/check-auth', sessionValidator, (req, res) => {
     res.status(200).send({ message: 'Authenticated', name: req.user.name });
 });

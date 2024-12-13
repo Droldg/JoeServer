@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const profilePicturePreview = document.getElementById('profile-picture-preview');
     const uploadButton = document.getElementById('upload-profile-picture-button');
 
-    // Hent brugeroplysninger og udfyld formularen
+    // Henter brugeroplysninger og udfylder formularen
     async function fetchUserDetails() {
         try {
             const response = await fetch('https://hait-joe.live/api/edit-profile', {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('name').value = userDetails.name;
                 document.getElementById('email').value = userDetails.email;
 
-                // Sæt profilbillede, hvis det findes
+                // Sætter profilbillede, hvis det findes i databasen
                 if (userDetails.profilePicture) {
                     profilePicturePreview.src = userDetails.profilePicture;
                 }
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await fetchUserDetails();
 
-    // Preview profilbillede
+    // Preview profilbillede - viser billede i preview, når brugeren vælger et billede
     profilePictureInput.addEventListener('change', () => {
         const file = profilePictureInput.files[0];
         if (file) {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // Upload profilbillede
+    // Upload profilbillede - sender billede til serveren
     uploadButton.addEventListener('click', async () => {
         const file = profilePictureInput.files[0];
         if (!file) {
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         reader.onload = async () => {
             const profilePicture = reader.result; // Base64 data
 
-            try {
+            try { // Sender data til serveren
                 const response = await fetch('https://hait-joe.live/api/edit-profile/upload-profile-picture', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

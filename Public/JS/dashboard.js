@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    async function checkLogin() {
+    async function checkLogin() { // Funktion til at tjekke om brugeren er logget ind
         try {
             const response = await fetch('https://hait-joe.live/api/check-auth', {
                 method: 'GET',
@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Check login status when the page loads
+    // Checker om brugeren er logget ind.
     await checkLogin();
 
-    // Logout functionality
+    // Logout funktionenalitet til logout-knap
     document.getElementById('logout-button').addEventListener('click', async () => {
         try {
             const response = await fetch('https://hait-joe.live/api/logout', {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (response.ok) {
                 alert('You have been logged out successfully.');
-                window.location.href = 'login.html'; // Redirect to login page after logout
+                window.location.href = 'login.html'; // Omdirigerer til login-siden
             } else {
                 alert('Failed to log out. Please try again.');
             }

@@ -15,14 +15,14 @@
     color: #fff;
 }
 
-/* Nav bar logout button alignment */
+/* Navbar styling */
 .navbar .button {
     position: absolute;
     right: 20px;
     top: 20px;
 }
 
-/* General dashboard layout (reuse from index.css) */
+/* Main content styling */
 .main-content {
     margin-top: 80px;
     padding: 2rem;

@@ -1,16 +1,16 @@
-const express = require('express');
-const mssql = require('mssql');
-const cors = require('cors');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
+const express = require('express'); // Importér Express.js
+const mssql = require('mssql'); // Importér MSSQL
+const cors = require('cors'); // Importér CORS
+const morgan = require('morgan'); // Importér Morgan
+const cookieParser = require('cookie-parser'); // Importér cookie-parser
 const path = require('path'); // Importer path til at håndtere filstier
 const sessions = require('./session'); // Delte sessions
 
 
-const app = express();
-const config = require('./config');
+const app = express(); 
+const config = require('./config'); // Importér databasekonfiguration
 
-// Forbind til databasen
+// Forbindelse til databasen
 const pool = new mssql.ConnectionPool(config);
 const poolConnect = pool.connect();
 
@@ -20,7 +20,7 @@ app.use(morgan('dev'));
 // CORS-konfiguration
 app.use(
     cors({
-        origin: ['https://hait-joe.live/'], // Tillad kun din produktions-URL
+        origin: ['https://hait-joe.live/'], // Tillader kun din produktions-URL
         credentials: true, // Sørger for, at cookies sendes og modtages
     })
 );
@@ -28,7 +28,7 @@ app.use(
 app.use(express.json({ limit: '100mb' })); // Tillader op til 10 MB JSON
 app.use(express.urlencoded({ limit: '100mb', extended: true })); // Tillader op til 10 MB form-data
 
-app.use(cookieParser());
+app.use(cookieParser()); // Middleware til at parse cookies
 
 // Separate ruter for hver undermappe
 app.use('/CSS', express.static(path.join(__dirname, 'Public', 'CSS')));
