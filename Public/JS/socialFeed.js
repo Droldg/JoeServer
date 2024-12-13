@@ -208,6 +208,9 @@ async function fetchAndDisplayPosts(socialID) {
 
         const posts = await response.json();
 
+        // Debugging: Log de hentede posts
+        console.log('Fetched posts:', posts);
+
         // Container for posts
         const container = document.getElementById('feed-container');
         container.innerHTML = ''; // Ryd eksisterende indhold
@@ -215,12 +218,12 @@ async function fetchAndDisplayPosts(socialID) {
         posts.forEach((post) => {
             const profilePicture = post.ProfilePicture 
                 ? `data:image/png;base64,${post.ProfilePicture}` 
-                : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/avCaW8AAAAASUVORK5CYII='; // En sort 1x1 pixel i Base64
+                : ''; // Hvis der ikke er et profilbillede
 
             const postHTML = `
                 <div class="post-content">
                     <div class="post-header">
-                        <img src="${profilePicture}" alt="Profile Picture" class="profile-image">
+                        ${profilePicture ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">` : ''}
                         <h2 class="user-name">${post.userID}</h2>
                     </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
