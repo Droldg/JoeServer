@@ -243,7 +243,7 @@ async function fetchAndDisplayPosts(socialID) {
                     <p class="post-caption">${post.postCaption}</p>
                     <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
                     <div class="post-actions">
-                        <button class="like-button" onclick="likePost(${socialID}'${post.postTitle}')">Like</button>
+                        <button class="like-button" onclick="likePost(${socialID}',${post.postTitle}')">Like</button>
                         <button class="comment-button">Comment</button>
                     </div>
                 </div>`;
