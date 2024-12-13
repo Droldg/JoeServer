@@ -224,7 +224,7 @@ async function fetchAndDisplayPosts(socialID) {
             console.log(post)
             // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
             const profilePicture = hej.profilePicture
-                ? `data:image/png;base64,${hej.profilePicture}`
+                ? `${hej.profilePicture}`
                 : ''; // Hvis null, sæt ikke noget billede
 
             const profileHTML = profilePicture
