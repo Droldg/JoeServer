@@ -51,19 +51,19 @@ async function fetchUserDetails() {
 }
 
 
-async function likePost(postTitle) {
+async function likePost(socialID, postTitle) {
     try {
         const response = await fetch('https://hait-joe.live/api/like-post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ postTitle }), // Send postTitle
+            body: JSON.stringify({ socialID, postTitle }), // Send både socialID og postTitle
         });
 
         if (response.ok) {
-            console.log(`Post "${postTitle}" liked successfully.`);
-            fetchAndDisplayPosts('social1'); // Opdater feedet for at vise den nye like-count
+            console.log(`Post "${postTitle}" liked successfully in socialID "${socialID}".`);
+            fetchAndDisplayPosts(socialID); // Opdater feedet for at vise den nye like-count
         } else {
             console.error('Failed to like post:', await response.text());
         }
@@ -71,6 +71,7 @@ async function likePost(postTitle) {
         console.error('An error occurred while liking the post:', err);
     }
 }
+
 
 
 
@@ -242,7 +243,7 @@ async function fetchAndDisplayPosts(socialID) {
                     <p class="post-caption">${post.postCaption}</p>
                     <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
                     <div class="post-actions">
-                        <button class="like-button" onclick="likePost('${post.postTitle}')">Like</button>
+                        <button class="like-button" onclick="likePost(${socialID},'${post.postTitle}')">Like</button>
                         <button class="comment-button">Comment</button>
                     </div>
                 </div>`;
