@@ -241,8 +241,7 @@
     text-align: center;
     transition: background-color 0.3s, transform 0.2s;
     width: 50%;
-    display: flex;
-    flex-direction: row;
+    display: inline-block;
 }
 
 .like-button:hover,
