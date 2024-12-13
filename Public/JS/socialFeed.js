@@ -213,8 +213,8 @@ async function fetchAndDisplayPosts(socialID) {
 
         const posts = await response.json();
         console.log('Fetched posts:', posts);
-        let hej = await fetchUserDetails();
-        console.log(hej);
+        let userDetails = await fetchUserDetails();
+        console.log(userDetails);
 
 
         const container = document.getElementById('feed-container');
@@ -223,8 +223,8 @@ async function fetchAndDisplayPosts(socialID) {
         posts.forEach((post) => {
             console.log(post)
             // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
-            const profilePicture = hej.profilePicture
-                ? `${hej.profilePicture}`
+            const profilePicture = userDetails.profilePicture
+                ? `${userDetails.profilePicture}`
                 : ''; // Hvis null, sæt ikke noget billede
 
             const profileHTML = profilePicture
@@ -235,7 +235,7 @@ async function fetchAndDisplayPosts(socialID) {
                 <div class="post-content">
                     <div class="post-header">
                         ${profileHTML}
-                        <h2 class="user-name">${hej.name}</h2>
+                        <h2 class="user-name">${userDetails.name}</h2>
                     </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
                     <h4 class="post-title">${post.postTitle}</h4>
