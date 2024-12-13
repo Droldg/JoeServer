@@ -229,7 +229,7 @@ async function fetchAndDisplayPosts(socialID) {
 
             const profileHTML = profilePicture
                 ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">`
-                : `<div class="profile-placeholder"></div>`; // Sort placeholder (styling håndteres via CSS)
+                : `<div class="profile-placeholder"></div>`; 
 
             const postHTML = `
                 <div class="post-content">
