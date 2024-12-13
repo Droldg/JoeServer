@@ -41,15 +41,22 @@ router.get('/posts/:socialID', async (req, res) => {
 
     try {
         const pool = await poolPromise;
-
         const result = await pool.request()
-            .input('socialID', socialID)
-            .query('SELECT * FROM social001 WHERE socialID = @socialID;');
+            .input('SocialID', mssql.NVarChar, socialID)
+            .query(`
+                SELECT 
+                    p.postTitle, 
+                    p.postCaption, 
+                    p.postLikes, 
+                    p.postMedia, 
+                    u.ProfilePicture, 
+                    u.Name AS userID
+                FROM dbo.Posts p
+                JOIN dbo.UserTable u ON p.UserID = u.UserID
+                WHERE p.SocialID = @SocialID
+            `);
 
-        if (result.recordset.length === 0) {
-            return res.status(404).send('No posts found with the given socialID.');
-        }
-
+        // Returnér resultaterne
         res.status(200).json(result.recordset);
     } catch (error) {
         console.error('Error fetching posts:', error);

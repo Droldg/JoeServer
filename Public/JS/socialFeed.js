@@ -213,7 +213,9 @@ async function fetchAndDisplayPosts(socialID) {
         container.innerHTML = ''; // Ryd eksisterende indhold
 
         posts.forEach((post) => {
-            const profilePicture = post.profilePicture || 'default-profile.png'; // Brug default hvis ingen profilbillede
+            const profilePicture = post.ProfilePicture 
+                ? `data:image/png;base64,${post.ProfilePicture}` 
+                : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/avCaW8AAAAASUVORK5CYII='; // En sort 1x1 pixel i Base64
 
             const postHTML = `
                 <div class="post-content">
@@ -236,6 +238,7 @@ async function fetchAndDisplayPosts(socialID) {
         console.error('An error occurred while fetching posts:', err);
     }
 }
+
 
 
 
