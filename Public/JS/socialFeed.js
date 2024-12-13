@@ -28,6 +28,29 @@ function closeModal() {
 }
 
 
+async function fetchUserDetails() {
+    try {
+        const response = await fetch('https://hait-joe.live/api/edit-profile', {
+            method: 'GET',
+            credentials: 'include', // Inkluder cookies for session validering
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch user details: ${response.statusText}`);
+        }
+
+        const user = await response.json();
+        console.log(user)
+        return user;
+    } catch (error) {
+        console.error('An error occurred while fetching user details:', error);
+    }
+}
+
+
 async function likePost(postTitle) {
     try {
         const response = await fetch('https://hait-joe.live/api/like-post', {
@@ -263,27 +286,7 @@ async function fetchAndDisplayPosts(socialID) {
 fetchAndDisplayPosts(socialID);
 
 // Funktion til at hente brugeroplysninger
-async function fetchUserDetails() {
-    try {
-        const response = await fetch('https://hait-joe.live/api/edit-profile', {
-            method: 'GET',
-            credentials: 'include', // Inkluder cookies for session validering
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch user details: ${response.statusText}`);
-        }
-
-        const user = await response.json();
-        console.log(user)
-        return user;
-    } catch (error) {
-        console.error('An error occurred while fetching user details:', error);
-    }
-}
 
 
 
