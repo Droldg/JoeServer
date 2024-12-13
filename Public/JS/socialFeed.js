@@ -244,7 +244,7 @@ async function fetchAndDisplayPosts(socialID = 'social1') {
 
 
 // Eksempel: Hent posts med et specifikt socialID
-fetchAndDisplayPosts('social1');
+fetchAndDisplayPosts('social001');
 
 // Funktion til at hente brugeroplysninger
 async function fetchUserDetails() {
