@@ -41,6 +41,7 @@ router.get('/posts/:socialID', async (req, res) => {
 
     try {
         const pool = await poolPromise;
+
         console.log('Fetching posts for socialID:', socialID);
 
         const result = await pool.request()
@@ -54,20 +55,19 @@ router.get('/posts/:socialID', async (req, res) => {
                     u.ProfilePicture, 
                     u.Name AS userID
                 FROM dbo.social001 p
-                JOIN dbo.UserTable u ON p.userID = CAST(u.UserID AS NVARCHAR)
+                JOIN dbo.UserTable u ON CAST(p.userID AS NVARCHAR) = CAST(u.UserID AS NVARCHAR)
                 WHERE p.socialID = @SocialID
             `);
-
-        console.log('Query result:', result.recordset);
 
         if (!result.recordset.length) {
             console.log('No posts found for socialID:', socialID);
             return res.status(404).send('No posts found.');
         }
 
+        console.log('Posts fetched:', result.recordset); // Debugging
         res.status(200).json(result.recordset);
     } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching posts for socialID:', socialID, 'Error:', error.message);
         res.status(500).send('An error occurred while fetching posts.');
     }
 });
