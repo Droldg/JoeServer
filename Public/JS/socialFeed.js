@@ -41,27 +41,35 @@ async function likePost(postTitle) {
     }
 }
 
-async function fetchProfileImage() {
+async function fetchProfile() {
     try {
         const response = await fetch('https://hait-joe.live/api/edit-profile', {
             method: 'GET',
-            credentials: 'include', // Inkluder cookies for session validering
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
         });
 
         if (!response.ok) {
-            throw new Error(`Failed to fetch profile image: ${response.statusText}`);
+            throw new Error(`Failed to fetch profile: ${response.statusText}`);
         }
 
         const user = await response.json();
-        return user.profileImage; // Returnér profilbilledet som Base64-streng eller URL
+        return user.profilePicture; // Returnér Base64 profilbillede
     } catch (error) {
-        console.error('An error occurred while fetching profile image:', error);
-        return null; // Returnér null ved fejl
+        console.error('An error occurred while fetching profile picture:', error);
+        return null;
     }
 }
+
+async function displayProfilePicture() {
+    const profilePicture = await fetchProfile();
+    if (profilePicture) {
+        document.getElementById('profile-picture').src = profilePicture; // Tilføj Base64 som `src`
+    }
+}
+
 
 
 
@@ -210,7 +218,7 @@ async function fetchAndDisplayPosts(socialID) {
             const postHTML = `
                 <div class="post-content">
                     <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <img src="${profileImage}" alt="Profile" class="profile-image">
+                        <img id="profile-picture" class="profile-image" alt="User Profile" />
                         <h2 style="margin-left: 10px;">${post.userID}</h2>
                     </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">

@@ -254,10 +254,9 @@
 
 
 .profile-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; /* Gør billedet cirkulært */
-    border: 2px solid #ccc; /* Tilføj en kant for stil */
-    object-fit: cover; /* Sikrer, at billedet bevarer proportioner */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    object-fit: cover;
 }
-
