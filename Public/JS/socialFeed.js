@@ -236,7 +236,7 @@ async function fetchAndDisplayPosts(socialID) {
                 <div class="post-content">
                     <div class="post-header">
                         ${profileHTML}
-                        <h2 class="user-name">${post.userID || "Unknown User"}</h2>
+                        <h2 class="user-name">${post.userID}</h2>
                     </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
                     <h4 class="post-title">${post.postTitle}</h4>
