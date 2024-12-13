@@ -42,7 +42,8 @@ router.get('/posts/:socialID', async (req, res) => {
     try {
         const pool = await poolPromise;
 
-        console.log('Fetching posts for socialID:', socialID);
+        console.log('Debugging - Input SocialID:', socialID);
+        console.log('Debugging - Input Type:', typeof socialID);
 
         const result = await pool.request()
             .input('SocialID', mssql.NVarChar, socialID)
@@ -53,24 +54,28 @@ router.get('/posts/:socialID', async (req, res) => {
                     p.postLikes, 
                     p.postMedia, 
                     u.ProfilePicture, 
-                    u.Name AS userID
+                    u.Name AS userName
                 FROM dbo.social001 p
-                LEFT JOIN dbo.UserTable u ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR)
+                LEFT JOIN dbo.UserTable u ON p.userID = u.UserID
                 WHERE p.socialID = @SocialID
             `);
 
+        console.log('Debugging - Query Result:', result.recordset);
+
         if (!result.recordset.length) {
             console.log('No posts found for socialID:', socialID);
-            return res.status(404).send('No posts found.');
+            return res.status(404).json({ message: 'Ingen opslag fundet.' });
         }
 
         res.status(200).json(result.recordset);
     } catch (error) {
-        console.error('Error fetching posts:', error.message);
-        res.status(500).send('An error occurred while fetching posts.');
+        console.error('Detaljeret fejl ved hentning af opslag:', error);
+        res.status(500).json({ 
+            message: 'Der opstod en fejl ved hentning af opslag.',
+            error: error.message 
+        });
     }
 });
-
 
 
 
