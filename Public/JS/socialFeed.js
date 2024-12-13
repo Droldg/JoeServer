@@ -1,8 +1,9 @@
 
 
-const socialID = "social001";
+    const socialID = "social001";
 
-
+    let evt = await fetchUserDetails();
+    const userID = evt.name;
 
 
 
@@ -166,8 +167,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const title = document.getElementById('imageName').value.trim();
         const message = document.getElementById('imageMessage').value.trim();
 
-        let evt = await fetchUserDetails();
-        const userID = evt.name;
+        
         
         
        
