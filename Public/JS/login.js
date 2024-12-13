@@ -26,11 +26,11 @@ document.querySelector('.login-form').addEventListener('submit', async (event) =
         const result = await response.json();
         alert(`Welcome back, ${result.user.name}!`);
 
-        // Kontroller, om cookies allerede er accepteret
+        // Nedentsående kontrollere om cookies allerede er accepteret
         if (!document.cookie.includes('cookies_accepted=true')) {
-            showCookieModal(); // Vis modal, hvis cookies ikke er accepteret
+            showCookieModal(); // Viser modal, hvis cookies ikke er accepteret
         } else {
-            window.location.href = '/dashboard.html'; // Videre til dashboard
+            window.location.href = '/dashboard.html'; // Sendes videre til dashboard
         }
     } catch (err) {
         if (err.message.includes('NetworkError')) {
@@ -56,7 +56,7 @@ function showCookieModal() {
             if (response.ok) {
                 alert('Cookies accepted!');
                 modal.style.display = 'none';
-                window.location.href = '/dashboard.html'; // Videre til dashboard
+                window.location.href = '/dashboard.html'; // Sendes videre til dashboard
             } else {
                 alert('Failed to accept cookies.');
             }

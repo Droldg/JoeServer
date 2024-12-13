@@ -1,4 +1,4 @@
-// Open modal
+// Open modal - Funktion til at åbne modal.
 function openModal() {
     const modal = document.getElementById("modal");
     if (modal) {
@@ -6,7 +6,7 @@ function openModal() {
     }
 }
 
-// Close modal
+// Close modal - Funktion til at lukke modal.
 function closeModal() {
     const modal = document.getElementById("modal");
     if (modal) {
@@ -14,7 +14,7 @@ function closeModal() {
     }
 }
 
-// Close modal when clicking outside of modal content
+// Luk modal, når brugeren klikker uden for modal boksen.
 window.addEventListener("click", (event) => {
     const modal = document.getElementById("modal");
     if (modal && event.target === modal) {
@@ -22,7 +22,7 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// Close modal with ESC key
+// Luk modal, når brugeren trykker på Escape knappen.
 window.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
         closeModal();
