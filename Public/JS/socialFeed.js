@@ -171,6 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Funktion til at hente og vise posts
 async function fetchAndDisplayPosts(socialID) {
     try {
+        const profileImage = await fetchProfileImage(); // Hent profilbilledet én gang
+
         const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
@@ -185,8 +187,11 @@ async function fetchAndDisplayPosts(socialID) {
         posts.forEach((post) => {
             const postHTML = `
                 <div class="post-content">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <img src="${profileImage}" alt="Profile" class="profile-image">
+                        <h2 style="margin-left: 10px;">${post.userID}</h2>
+                    </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
-                    <h2>${post.userID}</h2>
                     <h4>${post.postTitle}</h4>
                     <p>${post.postCaption}</p>
                     <p><strong>Likes:</strong> ${post.postLikes}</p>
@@ -225,6 +230,29 @@ async function fetchUserDetails() {
         return user;
     } catch (error) {
         console.error('An error occurred while fetching user details:', error);
+    }
+}
+
+
+async function fetchProfileImage() {
+    try {
+        const response = await fetch('https://hait-joe.live/api/edit-profile', {
+            method: 'GET',
+            credentials: 'include', // Inkluder cookies for session validering
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch profile image: ${response.statusText}`);
+        }
+
+        const user = await response.json();
+        return user.profileImage; // Returnér profilbilledet som Base64-streng eller URL
+    } catch (error) {
+        console.error('An error occurred while fetching profile image:', error);
+        return null; // Returnér null ved fejl
     }
 }
 

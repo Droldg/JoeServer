@@ -252,3 +252,12 @@
     margin-right: 10px; /* Tilpas afstand mellem knapperne */
 }
 
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Gør billedet cirkulært */
+    border: 2px solid #ccc; /* Tilføj en kant for stil */
+    object-fit: cover; /* Sikrer, at billedet bevarer proportioner */
+}
+
