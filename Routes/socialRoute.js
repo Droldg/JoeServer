@@ -41,7 +41,6 @@ router.get('/posts/:socialID', async (req, res) => {
 
     try {
         const pool = await poolPromise;
-
         console.log('Fetching posts for socialID:', socialID);
 
         const result = await pool.request()
@@ -58,6 +57,8 @@ router.get('/posts/:socialID', async (req, res) => {
                 JOIN dbo.UserTable u ON p.userID = CAST(u.UserID AS NVARCHAR)
                 WHERE p.socialID = @SocialID
             `);
+
+        console.log('Query result:', result.recordset);
 
         if (!result.recordset.length) {
             console.log('No posts found for socialID:', socialID);
