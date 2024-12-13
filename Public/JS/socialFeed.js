@@ -212,6 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const openModalBtn = document.getElementById('openModal');
     const closeModalBtn = document.getElementById('closeModal');
 
+
+
+
     // Åben modal, når knappen klikkes
     openModalBtn.addEventListener('click', () => {
         modal.style.display = 'block';
@@ -279,8 +282,6 @@ async function fetchAndDisplayPosts(socialID) {
 }
 
 
-let din = await fetchUserDetails();
-console.log(din);
 
 
 // Eksempel: Hent posts med et specifikt socialID
