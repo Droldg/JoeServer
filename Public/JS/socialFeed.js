@@ -41,6 +41,28 @@ async function likePost(postTitle) {
     }
 }
 
+async function fetchProfileImage() {
+    try {
+        const response = await fetch('https://hait-joe.live/api/edit-profile', {
+            method: 'GET',
+            credentials: 'include', // Inkluder cookies for session validering
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch profile image: ${response.statusText}`);
+        }
+
+        const user = await response.json();
+        return user.profileImage; // Returnér profilbilledet som Base64-streng eller URL
+    } catch (error) {
+        console.error('An error occurred while fetching profile image:', error);
+        return null; // Returnér null ved fejl
+    }
+}
+
 
 
 
@@ -234,26 +256,5 @@ async function fetchUserDetails() {
 }
 
 
-async function fetchProfileImage() {
-    try {
-        const response = await fetch('https://hait-joe.live/api/edit-profile', {
-            method: 'GET',
-            credentials: 'include', // Inkluder cookies for session validering
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch profile image: ${response.statusText}`);
-        }
-
-        const user = await response.json();
-        return user.profileImage; // Returnér profilbilledet som Base64-streng eller URL
-    } catch (error) {
-        console.error('An error occurred while fetching profile image:', error);
-        return null; // Returnér null ved fejl
-    }
-}
 
 
