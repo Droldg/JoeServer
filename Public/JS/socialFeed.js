@@ -202,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchAndDisplayPosts(socialID) {
     try {
         const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
-        console.log(response)
         if (!response.ok) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
@@ -214,15 +213,20 @@ async function fetchAndDisplayPosts(socialID) {
         container.innerHTML = '';
 
         posts.forEach((post) => {
-            const profilePicture = post.ProfilePicture 
-                ? `data:image/png;base64,${post.ProfilePicture}` 
-                : ''; // Ingen profilbillede, hvis tomt
+            // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
+            const profilePicture = post.ProfilePicture
+                ? `data:image/png;base64,${post.ProfilePicture}`
+                : ''; // Hvis null, sæt ikke noget billede
+
+            const profileHTML = profilePicture
+                ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">`
+                : `<div class="profile-placeholder"></div>`; // Sort placeholder (styling håndteres via CSS)
 
             const postHTML = `
                 <div class="post-content">
                     <div class="post-header">
-                        ${profilePicture ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">` : ''}
-                        <h2 class="user-name">${post.userID}</h2>
+                        ${profileHTML}
+                        <h2 class="user-name">${post.userID || "Unknown User"}</h2>
                     </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
                     <h4 class="post-title">${post.postTitle}</h4>
@@ -244,7 +248,7 @@ async function fetchAndDisplayPosts(socialID) {
 
 
 // Eksempel: Hent posts med et specifikt socialID
-fetchAndDisplayPosts('social001');
+fetchAndDisplayPosts(socialID);
 
 // Funktion til at hente brugeroplysninger
 async function fetchUserDetails() {
