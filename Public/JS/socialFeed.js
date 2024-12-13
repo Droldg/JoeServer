@@ -284,7 +284,8 @@ async function fetchAndDisplayPosts(socialID) {
 
 // Eksempel: Hent posts med et specifikt socialID
 fetchAndDisplayPosts(socialID);
-console.log(await fetchUserDetails());
+let din = await fetchUserDetails();
+console.log(din);
 
 // Funktion til at hente brugeroplysninger
 
