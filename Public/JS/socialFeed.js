@@ -1,3 +1,11 @@
+
+
+const socialID = "social001";
+
+
+
+
+
 // Funktion til at lukke modal
 function closeModal() {
     const modal = document.getElementById('uploadModal');
@@ -111,6 +119,8 @@ async function sendPostToServer(data) {
     }
 }
 
+
+
 // Håndtering af formular-indsendelse
 document.getElementById('uploadForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -136,7 +146,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         let evt = await fetchUserDetails();
         const userID = evt.name;
         
-        const socialID = "social001";
+       
 
         const data = {
             socialID,
@@ -248,7 +258,7 @@ async function fetchAndDisplayPosts(socialID) {
 
 
 // Eksempel: Hent posts med et specifikt socialID
-
+fetchAndDisplayPosts(socialID);
 
 // Funktion til at hente brugeroplysninger
 async function fetchUserDetails() {
