@@ -214,6 +214,7 @@ async function fetchAndDisplayPosts(socialID) {
         const posts = await response.json();
         console.log('Fetched posts:', posts);
         let hej = await fetchUserDetails();
+        console.log(hej);
 
 
         const container = document.getElementById('feed-container');
