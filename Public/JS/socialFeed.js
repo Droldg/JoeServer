@@ -19,6 +19,32 @@ function closeModal() {
     if (fileNameDisplay) fileNameDisplay.textContent = '';
 }
 
+
+async function likePost(postTitle) {
+    try {
+        const response = await fetch('https://hait-joe.live/api/like-post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ postTitle }), // Send postTitle
+        });
+
+        if (response.ok) {
+            console.log(`Post "${postTitle}" liked successfully.`);
+            fetchAndDisplayPosts('social1'); // Opdater feedet for at vise den nye like-count
+        } else {
+            console.error('Failed to like post:', await response.text());
+        }
+    } catch (err) {
+        console.error('An error occurred while liking the post:', err);
+    }
+}
+
+
+
+
+
 // Funktion til at vise det valgte filnavn
 function updateFileNameDisplay() {
     const fileInput = document.getElementById('imageInput');
@@ -163,9 +189,10 @@ async function fetchAndDisplayPosts(socialID) {
                     <h2>${post.userID}</h2>
                     <h4>${post.postTitle}</h4>
                     <p>${post.postCaption}</p>
+                    <p><strong>Likes:</strong> ${post.postLikes}</p>
                     <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                        <button class="like-button" style="flex: 1; margin-right: 5px;">Like</button>
-                        <button class="comment-button" style="flex: 1;">Comment</button>
+                        <button class="like-button" onclick="likePost('${post.postTitle}')">Like</button>
+                        <button class="comment-button">Comment</button>
                     </div>
                 </div>`;
             container.innerHTML += postHTML;
@@ -174,6 +201,7 @@ async function fetchAndDisplayPosts(socialID) {
         console.error('An error occurred while fetching posts:', err);
     }
 }
+
 
 // Eksempel: Hent posts med et specifikt socialID
 fetchAndDisplayPosts('social1');
@@ -199,3 +227,5 @@ async function fetchUserDetails() {
         console.error('An error occurred while fetching user details:', error);
     }
 }
+
+

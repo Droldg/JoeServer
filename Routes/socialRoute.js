@@ -59,5 +59,26 @@ router.get('/posts/:socialID', async (req, res) => {
 
 
 
+router.post('/like-post', async (req, res) => {
+    const { postTitle } = req.body; // Brug postTitle i stedet for postID
+
+    try {
+        const pool = await poolPromise;
+
+        await pool.request()
+            .input('PostTitle', postTitle)
+            .query('UPDATE dbo.social001 SET postLikes = postLikes + 1 WHERE postTitle = @PostTitle');
+
+        res.status(200).send('Post liked successfully.');
+    } catch (error) {
+        console.error('Error liking post:', error);
+        res.status(500).send('An error occurred while liking the post.');
+    }
+});
+
+
+
+
+
 
 module.exports = router;
