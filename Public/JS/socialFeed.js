@@ -28,6 +28,28 @@ function closeModal() {
 }
 
 
+async function fetchUserDetails() {
+    try {
+        const response = await fetch('https://hait-joe.live/api/edit-profile', {
+            method: 'GET',
+            credentials: 'include', // Inkluder cookies for session validering
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch user details: ${response.statusText}`);
+        }
+
+        const user = await response.json();
+        console.log(user)
+        return user;
+    } catch (error) {
+        console.error('An error occurred while fetching user details:', error);
+    }
+}
+
 
 async function likePost(postTitle) {
     try {
@@ -214,40 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Funktion til at hente og vise posts
-// Funktion til at hente brugeroplysninger
-async function fetchUserDetails() {
-    try {
-        const response = await fetch('https://hait-joe.live/api/edit-profile', {
-            method: 'GET',
-            credentials: 'include', // Inkluder cookies for session validering
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch user details: ${response.statusText}`);
-        }
-
-        const user = await response.json();
-        return user; // Returnér hele user-objektet
-    } catch (error) {
-        console.error('An error occurred while fetching user details:', error);
-        return null;
-    }
-}
-
-// Funktion til at hente og vise posts
 async function fetchAndDisplayPosts(socialID) {
     try {
-        // Hent brugeroplysninger
-        const userDetails = await fetchUserDetails();
-
-        if (!userDetails) {
-            console.error('User details could not be fetched.');
-            return;
-        }
-
         const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
@@ -260,9 +250,11 @@ async function fetchAndDisplayPosts(socialID) {
         container.innerHTML = '';
 
         posts.forEach((post) => {
-            const profilePicture = userDetails.profilePicture
-                ? `data:image/png;base64,${userDetails.profilePicture}`
-                : ''; // Hvis der ikke er et billede
+            console.log(post)
+            // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
+            const profilePicture = post.ProfilePicture
+                ? `data:image/png;base64,${post.ProfilePicture}`
+                : ''; // Hvis null, sæt ikke noget billede
 
             const profileHTML = profilePicture
                 ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">`
@@ -272,7 +264,7 @@ async function fetchAndDisplayPosts(socialID) {
                 <div class="post-content">
                     <div class="post-header">
                         ${profileHTML}
-                        <h2 class="user-name">${userDetails.name}</h2>
+                        <h2 class="user-name">${post.userID}</h2>
                     </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
                     <h4 class="post-title">${post.postTitle}</h4>
@@ -290,9 +282,11 @@ async function fetchAndDisplayPosts(socialID) {
     }
 }
 
+
+
+
 // Eksempel: Hent posts med et specifikt socialID
 fetchAndDisplayPosts(socialID);
-
 
 
 // Funktion til at hente brugeroplysninger
