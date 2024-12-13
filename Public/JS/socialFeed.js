@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Funktion til at hente og vise posts
-async function fetchAndDisplayPosts(socialID) {
+async function fetchAndDisplayPosts(socialID = 'social1') {
     try {
         const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
         if (!response.ok) {
@@ -207,18 +207,15 @@ async function fetchAndDisplayPosts(socialID) {
         }
 
         const posts = await response.json();
-
-        // Debugging: Log de hentede posts
         console.log('Fetched posts:', posts);
 
-        // Container for posts
         const container = document.getElementById('feed-container');
-        container.innerHTML = ''; // Ryd eksisterende indhold
+        container.innerHTML = '';
 
         posts.forEach((post) => {
             const profilePicture = post.ProfilePicture 
                 ? `data:image/png;base64,${post.ProfilePicture}` 
-                : ''; // Hvis der ikke er et profilbillede
+                : ''; // Ingen profilbillede, hvis tomt
 
             const postHTML = `
                 <div class="post-content">

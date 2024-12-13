@@ -55,16 +55,15 @@ router.get('/posts/:socialID', async (req, res) => {
                     u.ProfilePicture, 
                     u.Name AS userID
                 FROM dbo.social001 p
-                LEFT JOIN dbo.UserTable u ON CAST(p.userID AS NVARCHAR) = CAST(u.UserID AS NVARCHAR)
+                LEFT JOIN dbo.UserTable u ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR)
                 WHERE p.socialID = @SocialID
             `);
 
-        if (result.recordset.length === 0) {
+        if (!result.recordset.length) {
             console.log('No posts found for socialID:', socialID);
             return res.status(404).send('No posts found.');
         }
 
-        console.log('Posts fetched:', result.recordset); // Debugging
         res.status(200).json(result.recordset);
     } catch (error) {
         console.error('Error fetching posts:', error.message);
