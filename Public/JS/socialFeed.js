@@ -72,38 +72,6 @@ async function likePost(postTitle) {
     }
 }
 
-async function fetchProfile() {
-    try {
-        const response = await fetch('https://hait-joe.live/api/edit-profile', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch profile: ${response.statusText}`);
-        }
-
-        const user = await response.json();
-        return user.profilePicture; // Returnér Base64 profilbillede
-    } catch (error) {
-        console.error('An error occurred while fetching profile picture:', error);
-        return null;
-    }
-}
-
-async function displayProfilePicture() {
-    const profilePicture = await fetchProfile();
-    if (profilePicture) {
-        document.getElementById('profile-picture').src = profilePicture; // Tilføj Base64 som `src`
-    }
-}
-
-
-
-
 
 
 // Funktion til at vise det valgte filnavn
@@ -245,6 +213,8 @@ async function fetchAndDisplayPosts(socialID) {
 
         const posts = await response.json();
         console.log('Fetched posts:', posts);
+        let hej = await fetchUserDetails();
+
 
         const container = document.getElementById('feed-container');
         container.innerHTML = '';
@@ -252,8 +222,8 @@ async function fetchAndDisplayPosts(socialID) {
         posts.forEach((post) => {
             console.log(post)
             // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
-            const profilePicture = post.ProfilePicture
-                ? `data:image/png;base64,${post.ProfilePicture}`
+            const profilePicture = hej.ProfilePicture
+                ? `data:image/png;base64,${hej.ProfilePicture}`
                 : ''; // Hvis null, sæt ikke noget billede
 
             const profileHTML = profilePicture
@@ -264,7 +234,7 @@ async function fetchAndDisplayPosts(socialID) {
                 <div class="post-content">
                     <div class="post-header">
                         ${profileHTML}
-                        <h2 class="user-name">${post.userID}</h2>
+                        <h2 class="user-name">${hej.name}</h2>
                     </div>
                     <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
                     <h4 class="post-title">${post.postTitle}</h4>
