@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Funktion til at hente og vise posts
-async function fetchAndDisplayPosts(socialID = 'social1') {
+async function fetchAndDisplayPosts(socialID) {
     try {
         const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
         console.log(response)
