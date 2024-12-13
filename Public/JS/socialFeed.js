@@ -250,6 +250,7 @@ async function fetchAndDisplayPosts(socialID) {
         container.innerHTML = '';
 
         posts.forEach((post) => {
+            console.log(post)
             // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
             const profilePicture = post.ProfilePicture
                 ? `data:image/png;base64,${post.ProfilePicture}`
