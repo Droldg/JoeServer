@@ -202,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchAndDisplayPosts(socialID = 'social1') {
     try {
         const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
+        console.log(response)
         if (!response.ok) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
         }
