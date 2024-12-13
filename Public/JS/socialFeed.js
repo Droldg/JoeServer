@@ -233,20 +233,20 @@ async function fetchAndDisplayPosts(socialID) {
                 : `<div class="profile-placeholder"></div>`; 
 
             const postHTML = `
-                <div class="post-content">
-                    <div class="post-header">
-                        ${profileHTML}
-                        <h2 class="user-name">${userDetails.name}</h2>
-                    </div>
-                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
-                    <h4 class="post-title">${post.postTitle}</h4>
-                    <p class="post-caption">${post.postCaption}</p>
-                    <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
-                    <div class="post-actions">
-                        <button class="like-button" onclick="likePost(${socialID}',${post.postTitle}')">Like</button>
-                        <button class="comment-button">Comment</button>
-                    </div>
-                </div>`;
+            <div class="post-content">
+            <div class="post-header">
+                ${profileHTML}
+                <h2 class="user-name">${userDetails.name}</h2>
+            </div>
+                <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
+                <h4 class="post-title">${post.postTitle}</h4>
+                <p class="post-caption">${post.postCaption}</p>
+                <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
+            <div class="post-actions">
+                    <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
+                    <button class="comment-button">Comment</button>
+                </div>
+            </div>`;
             container.innerHTML += postHTML;
         });
     } catch (err) {
