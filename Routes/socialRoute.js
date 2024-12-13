@@ -54,9 +54,9 @@ router.get('/posts/:socialID', async (req, res) => {
                     p.postMedia, 
                     u.ProfilePicture, 
                     u.Name AS userID
-                FROM dbo.Posts p
-                JOIN dbo.UserTable u ON p.UserID = u.UserID
-                WHERE p.SocialID = @SocialID
+                FROM dbo.social001 p
+                JOIN dbo.UserTable u ON CAST(p.userID AS NVARCHAR) = CAST(u.UserID AS NVARCHAR)
+                WHERE p.socialID = @SocialID
             `);
 
         if (!result.recordset.length) {
@@ -70,6 +70,7 @@ router.get('/posts/:socialID', async (req, res) => {
         res.status(500).send('An error occurred while fetching posts.');
     }
 });
+
 
 
 
