@@ -10,7 +10,7 @@ document.querySelector('.login-form').addEventListener('submit', async (event) =
     }
 
     try {
-            const response = await fetch('https://hait-joe.live/api/login', {
+        const response = await fetch('https://hait-joe.live/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ document.querySelector('.login-form').addEventListener('submit', async (event) =
         if (!response.ok) {
             throw new Error(`Login failed: ${response.statusText}`);
         }
-    
+
         const result = await response.json();
         alert(`Welcome back, ${result.user.name}!`);
 

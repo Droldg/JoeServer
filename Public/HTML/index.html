@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Open+Sans&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Open+Sans&family=Roboto:wght@700&display=swap"
+        rel="stylesheet">
 
 
     <meta charset="UTF-8">
@@ -12,34 +15,35 @@
     <link rel="stylesheet" href="../CSS/index.css">
     <link rel="stylesheet" href="../CSS/nav.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="left-content">
-                    <img class="png" src="../PNG/joeLogo.svg" alt="">
-                    <div class="nav-links">
-                    <a href="#">HOME</a>
-                    <a href="./social.html">SOCIAL</a>
+            <img class="png" src="../PNG/joeLogo.svg" alt="">
+            <div class="nav-links">
+                <a href="#">HOME</a>
+                <a href="./social.html">SOCIAL</a>
+            </div>
+        </div>
+        <div class="button">
+            <button id="login-signup-button" class="logout-btn" onclick="openModal()">SIGN UP/LOGIN</button>
+        </div>
+
+
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>SIGN UP OR LOGIN</h2>
+                <p>Login with your existing email and password, or sign up to join the family.</p>
+                <div class="modal-buttons">
+                    <a href="signup.html" class="modal-btn signup-btn">SIGN UP</a>
+                    <a href="login.html" class="modal-btn login-btn">LOGIN</a>
                 </div>
             </div>
-            <div class="button">
-                <button id="login-signup-button" class="logout-btn" onclick="openModal()">SIGN UP/LOGIN</button>
-            </div>
-                    
-            
-            <!-- Modal -->
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <h2>SIGN UP OR LOGIN</h2>
-                    <p>Login with your existing email and password, or sign up to join the family.</p>
-                    <div class="modal-buttons">
-                        <a href="signup.html" class="modal-btn signup-btn">SIGN UP</a>
-                        <a href="login.html" class="modal-btn login-btn">LOGIN</a>
-                    </div>
-                </div>
-            </div>
-            
-        
+        </div>
+
+
     </nav>
 
     <main class="main-content">
@@ -74,7 +78,8 @@
             </div>
         </div>
     </main>
- <!-- Link to JavaScript -->
- <script src="../JS/index.js"></script>
+    <!-- Link to JavaScript -->
+    <script src="../JS/index.js"></script>
 </body>
+
 </html>

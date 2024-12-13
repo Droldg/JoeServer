@@ -30,11 +30,11 @@
 
 .feed-grid {
     display: flex;
-    justify-content: center; 
-    align-items: stretch; 
-    flex-wrap: wrap; 
-    gap: 3rem; 
-    padding: 2rem; 
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding: 2rem;
 }
 
 .post-card {
@@ -42,9 +42,9 @@
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.1s;
-    flex: 1 1 calc(30% - 2rem); 
-    max-width: 280px; 
-    box-sizing: border-box; 
+    flex: 1 1 calc(30% - 2rem);
+    max-width: 280px;
+    box-sizing: border-box;
 }
 
 .post-card:hover {

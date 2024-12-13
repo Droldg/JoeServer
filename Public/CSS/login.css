@@ -83,18 +83,26 @@ p a:hover {
 
 /* Login button styling (match signup button) */
 .login-btn {
-    background-color: #f6c1d9; /* Lyserød baggrund */
+    background-color: #f6c1d9;
+    /* Lyserød baggrund */
     border: none;
-    color: #fff; /* Hvid tekst */
-    font-size: 16px; /* Match skrifttypestørrelse */
-    padding: 12px; /* Match padding */
-    border-radius: 5px; /* Rundede hjørner */
-    cursor: pointer; /* Klikbart */
-    transition: background-color 0.3s ease; /* Glidende overgang */
+    color: #fff;
+    /* Hvid tekst */
+    font-size: 16px;
+    /* Match skrifttypestørrelse */
+    padding: 12px;
+    /* Match padding */
+    border-radius: 5px;
+    /* Rundede hjørner */
+    cursor: pointer;
+    /* Klikbart */
+    transition: background-color 0.3s ease;
+    /* Glidende overgang */
 }
 
 .login-btn:hover {
-    background-color: #e3a1bd; /* Mørkere lyserød ved hover */
+    background-color: #e3a1bd;
+    /* Mørkere lyserød ved hover */
 }
 
 
