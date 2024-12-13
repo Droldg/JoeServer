@@ -67,7 +67,7 @@ router.post('/upload-profile-picture', sessionValidator, async (req, res) => {
     const { profilePicture } = req.body; // Base64 billede-data
 
     if (!profilePicture) {
-        return res.status(400).send('No profile picture provided.');
+        return res.status(400).json({ message: 'No profile picture provided.' });
     }
 
     try {
@@ -77,10 +77,10 @@ router.post('/upload-profile-picture', sessionValidator, async (req, res) => {
             .input('ProfilePicture', mssql.NVarChar(mssql.MAX), profilePicture) // Brug NVarChar(MAX) til base64
             .query('UPDATE dbo.UserTable SET ProfilePicture = @ProfilePicture WHERE UserID = @UserID;');
 
-        res.status(200).send('Profile picture updated successfully.');
+        res.status(200).json({ message: 'Profile picture updated successfully.' });
     } catch (error) {
         console.error('Error updating profile picture:', error);
-        res.status(500).send('An error occurred while updating profile picture.');
+        res.status(500).json({ message: 'An error occurred while updating profile picture.' });
     }
 });
 
