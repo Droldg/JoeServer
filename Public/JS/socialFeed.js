@@ -166,7 +166,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         const title = document.getElementById('imageName').value.trim();
         const message = document.getElementById('imageMessage').value.trim();
 
-        let evt = await fetchUserDetails();
+        let evt = await fetchProfile();
         const userID = evt.name;
         
         
