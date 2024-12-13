@@ -1,11 +1,13 @@
+/* Container for posts */
 .feed-container {
     margin-top: 9vh;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-
 }
-#knapper{
+
+/* Button group */
+#knapper {
     display: flex;
     text-decoration: none;
     margin: -2vh;
@@ -14,37 +16,40 @@
     gap: 10px;
 }
 
-
+/* Post styling */
 .post-content {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 10px auto; /* Reducer lodret margin til 10px */
+    margin: 10px auto;
     max-width: 55vh;
     overflow: hidden;
     padding: 15px;
     border: 1px solid #ccc;
 }
 
-
-
+/* Post title */
 .post-content h4 {
     margin: 0 5px 8px;
     font-size: 18px;
     color: black;
 }
+
+/* Post header */
 .post-content h2 {
     margin: 0 5px 8px;
     font-size: 18px;
     color: black;
 }
 
+/* Post text */
 .post-content p {
     margin: 5px 8px;
     font-size: 14px;
     color: #555;
 }
 
+/* Back button */
 .back h3 {
     text-decoration: none;
     padding: 12px 20px;
@@ -58,18 +63,19 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 .back a {
     text-decoration: none;
 }
 
 .back h3:hover {
-    background-color: #c799ad; /* Ændrer farven ved hover */
-    transform: translateY(-2px); /* Løfter knappen lidt ved hover */
+    background-color: #c799ad;
+    transform: translateY(-2px);
 }
 
-
+/* Modal styling */
 .modal {
-    display: none; /* Start skjult */
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -77,7 +83,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent baggrund */
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -149,7 +155,6 @@
     cursor: not-allowed;
 }
 
-
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -193,23 +198,24 @@
 }
 
 #openModal:hover {
-    background-color: #c799ad; /* Ændrer farven ved hover */
-    transform: translateY(-2px); /* Løfter knappen lidt ved hover */
+    background-color: #c799ad;
+    transform: translateY(-2px);
 }
 
 #openModal:active {
-    background-color: #c799ad; /* Mørkere farve ved klik */
-    transform: translateY(1px); /* Tryk-effekt */
+    background-color: #c799ad;
+    transform: translateY(1px);
 }
 
-
+/* Post image */
 .post-content img {
     display: block;
-    max-width: 100%; /* Gør billedet responsivt */
-    height: auto; /* Bevarer billedets proportioner */
+    max-width: 100%;
+    height: auto;
     border-radius: 8px;
 }
 
+/* Title */
 .titel {
     margin-top: 8vh;
     color: black;
@@ -221,10 +227,10 @@
     color: #555;
 }
 
-
+/* Like and comment buttons */
 .like-button,
 .comment-button {
-    background-color: #f7c1d9; /* Primær farve */
+    background-color: #f7c1d9;
     color: white;
     border: none;
     border-radius: 5px;
@@ -234,26 +240,22 @@
     cursor: pointer;
     text-align: center;
     transition: background-color 0.3s, transform 0.2s;
+    width: 50%;
 }
 
 .like-button:hover,
 .comment-button:hover {
-    background-color: #c799ad; /* Mørkere farve ved hover */
-    transform: translateY(-2px); /* Løft knappen ved hover */
+    background-color: #c799ad;
+    transform: translateY(-2px);
 }
 
 .like-button:active,
 .comment-button:active {
-    background-color: #c799ad; /* Mørkere farve ved klik */
-    transform: translateY(1px); /* Tryk-effekt ved klik */
+    background-color: #c799ad;
+    transform: translateY(1px);
 }
 
-.like-button {
-    margin-right: 10px; /* Tilpas afstand mellem knapperne */
-}
-
-
-/* Profilbillede */
+/* Profile image */
 .profile-image {
     width: 40px;
     height: 40px;
@@ -263,24 +265,25 @@
     margin-right: 10px;
 }
 
-/* Indlægsheader */
+/* Post header */
 .post-header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-/* Brugernavn */
+/* User name */
 .user-name {
     font-size: 16px;
     font-weight: bold;
     margin: 0;
 }
 
+/* Profile placeholder */
 .profile-placeholder {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #f7c1d9; /* Sort baggrund */
+    background-color: #f7c1d9;
     display: inline-block;
 }
