@@ -201,8 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Funktion til at hente og vise posts
 async function fetchAndDisplayPosts(socialID) {
     try {
-        const profileImage = await fetchProfileImage(); // Hent profilbilledet én gang
-
         const response = await fetch(`https://hait-joe.live/api/posts/${socialID}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
@@ -215,17 +213,19 @@ async function fetchAndDisplayPosts(socialID) {
         container.innerHTML = ''; // Ryd eksisterende indhold
 
         posts.forEach((post) => {
+            const profilePicture = post.profilePicture || 'default-profile.png'; // Brug default hvis ingen profilbillede
+
             const postHTML = `
                 <div class="post-content">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <img id="profile-picture" class="profile-image" alt="User Profile" />
-                        <h2 style="margin-left: 10px;">${post.userID}</h2>
+                    <div class="post-header">
+                        <img src="${profilePicture}" alt="Profile Picture" class="profile-image">
+                        <h2 class="user-name">${post.userID}</h2>
                     </div>
-                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image">
-                    <h4>${post.postTitle}</h4>
-                    <p>${post.postCaption}</p>
-                    <p><strong>Likes:</strong> ${post.postLikes}</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
+                    <h4 class="post-title">${post.postTitle}</h4>
+                    <p class="post-caption">${post.postCaption}</p>
+                    <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
+                    <div class="post-actions">
                         <button class="like-button" onclick="likePost('${post.postTitle}')">Like</button>
                         <button class="comment-button">Comment</button>
                     </div>
@@ -236,6 +236,7 @@ async function fetchAndDisplayPosts(socialID) {
         console.error('An error occurred while fetching posts:', err);
     }
 }
+
 
 
 // Eksempel: Hent posts med et specifikt socialID

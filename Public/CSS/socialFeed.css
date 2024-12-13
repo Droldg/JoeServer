@@ -260,3 +260,73 @@
     border: 2px solid #ccc;
     object-fit: cover;
 }
+/* Profilbillede */
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+}
+
+/* Indlægsheader */
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Brugernavn */
+.user-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Indlægsbillede */
+.post-media {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* Indlægs-titel og tekst */
+.post-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.post-caption {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Like og kommentar knapper */
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.like-button,
+.comment-button {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.like-button:hover,
+.comment-button:hover {
+    background-color: #0056b3;
+}

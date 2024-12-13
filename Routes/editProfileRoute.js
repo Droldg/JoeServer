@@ -31,7 +31,6 @@ router.get('/', sessionValidator, async (req, res) => {
     }
 });
 
-
 // Opdater brugeroplysninger
 router.post('/', sessionValidator, async (req, res) => {
     const { name, email, password } = req.body;
