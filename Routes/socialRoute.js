@@ -106,6 +106,7 @@ router.post('/comment', async (req, res) => {
     const { socialID, postTitle, userName, comment } = req.body; // Modtag data fra frontend
 
     try {
+        // Tjek for manglende felter
         if (!socialID || !postTitle || !userName || !comment) {
             return res.status(400).send('Missing required fields.');
         }
@@ -114,7 +115,6 @@ router.post('/comment', async (req, res) => {
 
         // Hent eksisterende kommentarer for det pågældende indlæg
         const result = await pool.request()
-            .input('SocialID', socialID)
             .input('PostTitle', postTitle)
             .query(`
                 SELECT postComments
@@ -122,28 +122,38 @@ router.post('/comment', async (req, res) => {
                 WHERE postTitle = @PostTitle
             `);
 
+        // Hvis ingen post blev fundet
         if (result.recordset.length === 0) {
             return res.status(404).send('Post not found.');
         }
 
         // Eksisterende kommentarer
-        const existingComments = result.recordset[0].postComments || '[]'; // Hvis tom, brug en tom array-streng
-        const commentsArray = JSON.parse(existingComments); // Parse eksisterende kommentarer
+        const existingComments = result.recordset[0].postComments || '[]'; // Brug tom array-streng, hvis null
+        let commentsArray;
+
+        try {
+            commentsArray = JSON.parse(existingComments); // Parse eksisterende kommentarer
+        } catch (parseError) {
+            console.error('Error parsing existing comments:', parseError);
+            return res.status(500).send('Error parsing existing comments.');
+        }
 
         // Tilføj ny kommentar
-        commentsArray.push({ userName, comment, timestamp: new Date() });
+        commentsArray.push({
+            userName,
+            comment,
+            timestamp: new Date().toISOString(), // ISO timestamp for præcision
+        });
 
-        // Opdater kolonnen postComments med den nye kommentar
+        // Opdater kolonnen `postComments` med de opdaterede kommentarer
         await pool.request()
-        .input('SocialID', socialID)
-        .input('PostTitle', postTitle)
-        .input('UpdatedComments', '[{"userName": "TestUser", "comment": "This is a test comment", "timestamp": "2024-12-14T12:00:00Z"}]')
-        .query(`
-            UPDATE dbo.${socialID}
-            SET postComments = @UpdatedComments
-            WHERE postTitle = @PostTitle
-        `);
-    
+            .input('PostTitle', postTitle)
+            .input('UpdatedComments', JSON.stringify(commentsArray)) // Konverter array til JSON-streng
+            .query(`
+                UPDATE dbo.${socialID}
+                SET postComments = @UpdatedComments
+                WHERE postTitle = @PostTitle
+            `);
 
         res.status(200).send('Comment added successfully.');
     } catch (error) {
@@ -151,6 +161,7 @@ router.post('/comment', async (req, res) => {
         res.status(500).send('An error occurred while adding the comment.');
     }
 });
+
 
 
 
