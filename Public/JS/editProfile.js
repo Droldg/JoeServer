@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const profilePictureInput = document.getElementById('profile-picture-input');
     const profilePicturePreview = document.getElementById('profile-picture-preview');
     const uploadButton = document.getElementById('upload-profile-picture-button');
+    const editProfileForm = document.getElementById('edit-profile-form');
 
     // Henter brugeroplysninger og udfylder formularen
     async function fetchUserDetails() {
@@ -29,7 +30,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    // Fetch brugeroplysninger, når siden indlæses
     await fetchUserDetails();
+
+    // Håndter opdatering af adgangskode
+    editProfileForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Forhindrer siden i at genindlæse
+
+        const password = document.getElementById('password').value;
+
+        if (!password) {
+            alert('Please enter a new password.');
+            return;
+        }
+
+        try {
+            const response = await fetch('https://hait-joe.live/api/edit-profile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include', // Send cookies med
+                body: JSON.stringify({ password }), // Send kun password for at opdatere det
+            });
+
+            if (response.ok) {
+                alert('Password updated successfully!');
+                document.getElementById('password').value = ''; // Ryd password-feltet efter succes
+            } else {
+                const error = await response.text();
+                alert(`Failed to update password: ${error}`);
+            }
+        } catch (error) {
+            console.error('Error updating password:', error);
+            alert('An error occurred while updating the password.');
+        }
+    });
 
     // Preview profilbillede - viser billede i preview, når brugeren vælger et billede
     profilePictureInput.addEventListener('change', () => {
@@ -55,7 +89,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         reader.onload = async () => {
             const profilePicture = reader.result; // Base64 data
 
-            try { // Sender data til serveren
+            try {
+                // Sender data til serveren
                 const response = await fetch('https://hait-joe.live/api/edit-profile/upload-profile-picture', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
