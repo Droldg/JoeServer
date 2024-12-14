@@ -6,9 +6,9 @@ function initMap() {
   });
 
   const locations = [
-    { lat: 55.6804, lng: 12.5713, address: "Nørregade 12, 1165 København", link: "../HTML/social-feed.html" },
-    { lat: 55.6800, lng: 12.5700, address: "Skindergade 33, 1159 København", link: "../HTML/social-feed2.html" },
-    { lat: 55.6830, lng: 12.5705, address: "Frederiksborggade 9, 1360 København", link: "../HTML/social-feed3.html" },
+    { lat: 55.6804, lng: 12.5713, address: "Nørregade 12, 1165 København", link: "./social-feed.html" },
+    { lat: 55.6800, lng: 12.5700, address: "Skindergade 33, 1159 København", link: "./social-feed2.html" },
+    { lat: 55.6830, lng: 12.5705, address: "Frederiksborggade 9, 1360 København", link: "./social-feed3.html" },
     { lat: 55.6825, lng: 12.5750, address: "Landemærket 3, 1119 København" },
     { lat: 55.6810, lng: 12.5755, address: "Købmagergade 30, 1150 København" },
     { lat: 55.6750, lng: 12.5650, address: "Vesterbrogade 2E, 1630 København" },
