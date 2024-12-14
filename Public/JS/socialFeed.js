@@ -6,6 +6,29 @@ const socialID = "social001";
 
 
 
+async function addComment(socialID, postTitle, userName, comment) {
+    try {
+        const response = await fetch('https://hait-joe.live/api/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ socialID, postTitle, userName, comment }), // Send data til backend
+        });
+
+        if (response.ok) {
+            console.log('Comment added successfully.');
+            // Opdater UI, hvis nødvendigt
+        } else {
+            console.error('Failed to add comment:', await response.text());
+        }
+    } catch (err) {
+        console.error('An error occurred while adding the comment:', err);
+    }
+}
+
+
+
 // Funktion til at lukke modal
 function closeModal() {
     const modal = document.getElementById('uploadModal');
@@ -235,26 +258,28 @@ async function fetchAndDisplayPosts(socialID) {
             const postHTML = `
                 <div class="post-content">
                 <div class="post-header">
-                    ${profileHTML}
-                    <h2 class="user-name">${userDetails.name}</h2>
-                </div>
-                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
-                    <h4 class="post-title">${post.postTitle}</h4>
-                    <p class="post-caption">${post.postCaption}</p>
-                    <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
-                <div class="post-actions">
-                    <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
-                    <button class="comment-button">Comment</button>
-                </div>
-            </div>`;
+            ${profileHTML}
+            <h2 class="user-name">${userDetails.name}</h2>
+        </div>
+        <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
+        <h4 class="post-title">${post.postTitle}</h4>
+        <p class="post-caption">${post.postCaption}</p>
+        <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
+        <div class="post-actions">
+            <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
+            <button class="comment-button" onclick="showCommentField('${socialID}', '${post.postTitle}')">Comment</button>
+        </div>
+        <div class="comment-section" id="comment-section-${post.postTitle}">
+            <!-- Her vises tekstfeltet dynamisk -->
+        </div>
+    </div>
+`;
             container.innerHTML += postHTML;
         });
     } catch (err) {
         console.error('An error occurred while fetching posts:', err);
     }
 }
-
-
 
 
 // Eksempel: Hent posts med et specifikt socialID

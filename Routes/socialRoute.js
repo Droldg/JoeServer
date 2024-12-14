@@ -97,6 +97,54 @@ router.post('/like-post', async (req, res) => {
     }
 });
 
+router.post('/comment', async (req, res) => {
+    const { socialID, postTitle, userName, comment } = req.body; // Modtag data fra frontend
+
+    try {
+        if (!socialID || !postTitle || !userName || !comment) {
+            return res.status(400).send('Missing required fields.');
+        }
+
+        const pool = await poolPromise;
+
+        // Hent eksisterende kommentarer for det pågældende indlæg
+        const result = await pool.request()
+            .input('SocialID', socialID)
+            .input('PostTitle', postTitle)
+            .query(`
+                SELECT postComments
+                FROM dbo.${socialID}
+                WHERE postTitle = @PostTitle
+            `);
+
+        if (result.recordset.length === 0) {
+            return res.status(404).send('Post not found.');
+        }
+
+        // Eksisterende kommentarer
+        const existingComments = result.recordset[0].postComments || '[]'; // Hvis tom, brug en tom array-streng
+        const commentsArray = JSON.parse(existingComments); // Parse eksisterende kommentarer
+
+        // Tilføj ny kommentar
+        commentsArray.push({ userName, comment, timestamp: new Date() });
+
+        // Opdater kolonnen postComments med den nye kommentar
+        await pool.request()
+            .input('SocialID', socialID)
+            .input('PostTitle', postTitle)
+            .input('UpdatedComments', JSON.stringify(commentsArray)) // Konverter tilbage til JSON-streng
+            .query(`
+                UPDATE dbo.${socialID}
+                SET postComments = @UpdatedComments
+                WHERE postTitle = @PostTitle
+            `);
+
+        res.status(200).send('Comment added successfully.');
+    } catch (error) {
+        console.error('Error adding comment:', error);
+        res.status(500).send('An error occurred while adding the comment.');
+    }
+});
 
 
 
