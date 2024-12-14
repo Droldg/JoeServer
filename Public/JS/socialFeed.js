@@ -310,14 +310,14 @@ async function fetchAndDisplayPosts(socialID) {
         const posts = await response.json();
         console.log('Fetched posts:', posts);
         let userDetails = await fetchUserDetails();
-        console.log(userDetails);
+        //console.log(userDetails);
 
 
         const container = document.getElementById('feed-container');
         container.innerHTML = '';
 
         posts.forEach((post) => {
-            console.log(post)
+            //console.log(post)
             // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
             const profilePicture = userDetails.profilePicture
                 ? `${userDetails.profilePicture}`
