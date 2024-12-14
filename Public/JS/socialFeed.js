@@ -5,6 +5,54 @@ const socialID = "social001";
 
 
 
+function showCommentField(socialID, postTitle) {
+    const commentSection = document.getElementById(`comment-section-${postTitle}`);
+    
+    // Fjern eksisterende indhold for at undgå flere tekstfelter
+    commentSection.innerHTML = '';
+
+    // Tilføj tekstfelt og knap
+    const commentBoxHTML = `
+        <div class="comment-box">
+            <input type="text" id="comment-input-${postTitle}" placeholder="Write a comment..." class="comment-input">
+            <button class="submit-comment" onclick="submitComment('${socialID}', '${postTitle}')">Submit</button>
+        </div>
+    `;
+    commentSection.innerHTML = commentBoxHTML;
+}
+
+async function submitComment(socialID, postTitle) {
+    const commentInput = document.getElementById(`comment-input-${postTitle}`);
+    const comment = commentInput.value.trim();
+
+    if (!comment) {
+        alert("Please write a comment before submitting.");
+        return;
+    }
+
+    try {
+        const response = await fetch('https://hait-joe.live/api/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ socialID, postTitle, comment }),
+        });
+
+        if (response.ok) {
+            alert("Comment added successfully.");
+            commentInput.value = ''; // Ryd tekstfeltet
+            // Opdater kommentarer eller feedback
+        } else {
+            console.error("Failed to add comment:", await response.text());
+        }
+    } catch (error) {
+        console.error("An error occurred while adding the comment:", error);
+    }
+}
+
+
+
 
 async function addComment(socialID, postTitle, userName, comment) {
     try {
