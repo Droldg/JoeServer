@@ -30,10 +30,8 @@ async function submitComment(socialID, postTitle) {
         return;
     }
 
-    // Antag, at userName er gemt et sted i frontend (f.eks. i en global variabel)
-    const user = await fetchUserDetails();
 
-    const userName = user.name
+    const userName = userID;
 
     const commentData = {
         socialID,
