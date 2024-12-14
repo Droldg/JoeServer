@@ -321,49 +321,49 @@ async function fetchAndDisplayPosts(socialID) {
 
         const posts = await response.json();
         console.log('Fetched posts:', posts);
+        let userDetails = await fetchUserDetails();
+        //console.log(userDetails);
+
 
         const container = document.getElementById('feed-container');
         container.innerHTML = '';
 
         posts.forEach((post) => {
-            const profilePicture = post.ProfilePicture
-                ? `${post.ProfilePicture}`
+            //console.log(post)
+            // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
+            const profilePicture = userDetails.profilePicture
+                ? `${userDetails.profilePicture}`
                 : ''; // Hvis null, sæt ikke noget billede
 
             const profileHTML = profilePicture
                 ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">`
-                : `<div class="profile-placeholder"></div>`;
+                : `<div class="profile-placeholder"></div>`; 
 
-                                const postHTML = `
-                                <div class="post-content">
-                                    <div class="post-header">
-                                        ${profileHTML}
-                                        <h2 class="user-name">${post.userID}</h2>
-                                    </div>
-                                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
-                                    <h4 class="post-title">${post.postTitle}</h4>
-                                    <p class="post-caption">${post.postCaption}</p>
-                                    <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
-                                    <div class="post-actions">
-                                        <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
-                                        <button class="comment-button" 
-                                            onclick="showCommentField('${socialID}', '${post.postTitle}', ${JSON.stringify(post.postComments || []).replace(/'/g, "\\'")})">
-                                            Comment
-                                        </button>
-                                    </div>
-                                    <div class="comment-section" id="comment-section-${post.postTitle}">
-                                        <!-- Kommentarfelt vises dynamisk her -->
-                                    </div>
-                                </div>
-                            `;
+            const postHTML = `
+                <div class="post-content">
+                <div class="post-header">
+            ${profileHTML}
+            <h2 class="user-name">${userDetails.name}</h2>
+        </div>
+        <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
+        <h4 class="post-title">${post.postTitle}</h4>
+        <p class="post-caption">${post.postCaption}</p>
+        <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
+        <div class="post-actions">
+            <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
+            <button class="comment-button" onclick="showCommentField('${socialID}', '${post.postTitle}')">Comment</button>
+        </div>
+        <div class="comment-section" id="comment-section-${post.postTitle}">
+            <!-- Her vises tekstfeltet dynamisk -->
+        </div>
+    </div>
+`;
             container.innerHTML += postHTML;
         });
     } catch (err) {
         console.error('An error occurred while fetching posts:', err);
     }
 }
-
-
 
 
 // Eksempel: Hent posts med et specifikt socialID
