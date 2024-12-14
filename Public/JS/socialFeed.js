@@ -30,19 +30,22 @@ async function submitComment(socialID, postTitle) {
         return;
     }
 
+    // Debugging: Log data før request
+    const data = { socialID, postTitle, comment };
+    console.log("Submitting comment data:", data);
+
     try {
         const response = await fetch('https://hait-joe.live/api/comment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ socialID, postTitle, comment }),
+            body: JSON.stringify(data),
         });
 
         if (response.ok) {
             alert("Comment added successfully.");
             commentInput.value = ''; // Ryd tekstfeltet
-            // Opdater kommentarer eller feedback
         } else {
             console.error("Failed to add comment:", await response.text());
         }
@@ -50,6 +53,7 @@ async function submitComment(socialID, postTitle) {
         console.error("An error occurred while adding the comment:", error);
     }
 }
+
 
 
 
