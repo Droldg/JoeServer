@@ -261,12 +261,15 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
 });
 
 // Modal functionality
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const modal = document.getElementById('uploadModal');
     const openModalBtn = document.getElementById('openModal');
     const closeModalBtn = document.getElementById('closeModal');
 
-
+    const userDetails = await fetchUserDetails();
+    if (userDetails) {
+        loggedInUserName = userDetails.name; // Gem brugerens navn
+    }
 
 
     // Åben modal, når knappen klikkes
