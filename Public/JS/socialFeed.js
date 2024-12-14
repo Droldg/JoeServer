@@ -334,31 +334,28 @@ async function fetchAndDisplayPosts(socialID) {
                 ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">`
                 : `<div class="profile-placeholder"></div>`;
 
-                                        const postHTML = `
-                            <div class="post-content">
-                                <div class="post-header">
-                                    ${profileHTML}
-                                    <h2 class="user-name">${post.userID}</h2>
+                                const postHTML = `
+                                <div class="post-content">
+                                    <div class="post-header">
+                                        ${profileHTML}
+                                        <h2 class="user-name">${post.userID}</h2>
+                                    </div>
+                                    <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
+                                    <h4 class="post-title">${post.postTitle}</h4>
+                                    <p class="post-caption">${post.postCaption}</p>
+                                    <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
+                                    <div class="post-actions">
+                                        <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
+                                        <button class="comment-button" 
+                                            onclick="showCommentField('${socialID}', '${post.postTitle}', ${JSON.stringify(post.postComments || []).replace(/'/g, "\\'")})">
+                                            Comment
+                                        </button>
+                                    </div>
+                                    <div class="comment-section" id="comment-section-${post.postTitle}">
+                                        <!-- Kommentarfelt vises dynamisk her -->
+                                    </div>
                                 </div>
-                                <img id="postMedia" src="${post.postMedia}" alt="Uploaded Image" class="post-media">
-                                <h4 class="post-title">${post.postTitle}</h4>
-                                <p class="post-caption">${post.postCaption}</p>
-                                <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
-                                <div class="post-actions">
-                                    <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
-                                    <button class="comment-button" 
-                                        onclick="showCommentField('${socialID}', '${post.postTitle}')"
-                                        data-comments='${JSON.stringify(post.postComments || []).replace(/'/g, "&apos;")}'>
-                                        Comment
-                                    </button>
-                                </div>
-                                <div class="comment-section" id="comment-section-${post.postTitle}">
-                                    <!-- Kommentarfelt vises dynamisk her -->
-                                </div>
-                            </div>
-                        `;
-            
-
+                            `;
             container.innerHTML += postHTML;
         });
     } catch (err) {
