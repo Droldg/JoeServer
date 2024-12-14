@@ -51,6 +51,7 @@ router.get('/posts/:socialID', async (req, res) => {
                 p.postCaption, 
                 p.postLikes, 
                 p.postMedia, 
+                p.postComments, -- Hent postComments
                 u.ProfilePicture, 
                 u.Name AS userID
             FROM ${tableName} p
@@ -65,14 +66,18 @@ router.get('/posts/:socialID', async (req, res) => {
             return res.status(404).send('No posts found.');
         }
 
-        res.status(200).json(result.recordset);
+        // Parse postComments fra JSON-streng (hvis nødvendigt)
+        const postsWithParsedComments = result.recordset.map(post => ({
+            ...post,
+            postComments: post.postComments ? JSON.parse(post.postComments) : [] // Pars JSON-streng, eller returner tom array
+        }));
+
+        res.status(200).json(postsWithParsedComments);
     } catch (error) {
         console.error('Error fetching posts:', error.message);
         res.status(500).send('An error occurred while fetching posts.');
     }
 });
-
-
 
 
 
