@@ -130,14 +130,15 @@ router.post('/comment', async (req, res) => {
 
         // Opdater kolonnen postComments med den nye kommentar
         await pool.request()
-            .input('SocialID', socialID)
-            .input('PostTitle', postTitle)
-            .input('UpdatedComments', JSON.stringify(commentsArray)) // Konverter tilbage til JSON-streng
-            .query(`
-                UPDATE dbo.${socialID}
-                SET postComments = @UpdatedComments
-                WHERE postTitle = @PostTitle
-            `);
+        .input('SocialID', socialID)
+        .input('PostTitle', postTitle)
+        .input('UpdatedComments', '[{"userName": "TestUser", "comment": "This is a test comment", "timestamp": "2024-12-14T12:00:00Z"}]')
+        .query(`
+            UPDATE dbo.${socialID}
+            SET postComments = @UpdatedComments
+            WHERE postTitle = @PostTitle
+        `);
+    
 
         res.status(200).send('Comment added successfully.');
     } catch (error) {
