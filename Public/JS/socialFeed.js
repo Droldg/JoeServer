@@ -22,7 +22,12 @@ function showCommentField(socialID, postTitle) {
 }
 
 async function submitComment(socialID, postTitle) {
-    const commentInput = document.getElementById(`commentInput-${postTitle}`);
+    const commentInput = document.getElementById(`comment-input-${postTitle}`);
+    if (!commentInput) {
+        console.error(`Comment input field not found for postTitle: ${postTitle}`);
+        return;
+    }
+
     const comment = commentInput.value.trim();
 
     if (!comment) {
@@ -30,17 +35,19 @@ async function submitComment(socialID, postTitle) {
         return;
     }
 
-
-    const userName = userID;
+    if (!loggedInUserName) {
+        alert('User is not logged in. Please refresh the page.');
+        return;
+    }
 
     const commentData = {
         socialID,
         postTitle,
-        userName, // Tilføj userName
+        userName: loggedInUserName, // Brug den globale variabel
         comment,
     };
 
-    console.log('Submitting comment data:', commentData); // Debugging
+    console.log('Submitting comment data:', commentData);
 
     try {
         const response = await fetch('https://hait-joe.live/api/comment', {
@@ -53,9 +60,8 @@ async function submitComment(socialID, postTitle) {
 
         if (response.ok) {
             console.log('Comment added successfully');
-            // Ryd tekstfeltet efter succes
-            commentInput.value = '';
-            fetchAndDisplayPosts(socialID); // Opdater feedet for at vise de nye kommentarer
+            commentInput.value = ''; // Ryd tekstfeltet
+            fetchAndDisplayPosts(socialID); // Opdater feedet
         } else {
             console.error('Failed to add comment:', await response.text());
         }
@@ -63,6 +69,7 @@ async function submitComment(socialID, postTitle) {
         console.error('An error occurred while adding the comment:', error);
     }
 }
+
 
 
 
