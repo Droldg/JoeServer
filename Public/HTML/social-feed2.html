@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Open+Sans&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joe & the Juice - Social Feed</title>
+    <link rel="stylesheet" href="../CSS/nav.css">
+    <link rel="stylesheet" href="../CSS/socialFeed.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-content">
+            <img class="png" src="../PNG/joeLogo.svg" alt="">
+            <div class="nav-links">
+                <a href="./index.html">HOME</a>
+                <a href="#">PROFILE</a>
+                <a href="#">SETTINGS</a>
+                <a href="./social.html">SOCIAL</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="siden">
+        <h1 class="titel">Social</h1>
+        <div id="knapper">
+            <div class="back"><a href="../HTML/social.html"><h3>Back to maps</h3></a></div> <button id="openModal">Create Post</button>
+        </div>
+        <!-- Button to Open Modal -->
+        
+
+        <!-- Modal -->
+        <div id="uploadModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Create a New Post</h2>
+                    <span class="close" id="closeModal">&times;</span>
+                </div>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="file" id="imageInput" accept="image/*" required />
+                        <span id="fileNameDisplay" style="font-size: 14px; color: gray; position: absolute; margin-left: 13vh;margin-top: -10px;"></span>
+                    </div>
+                    <input type="text" id="imageName" placeholder="Image Name" required />
+                    <textarea id="imageMessage" placeholder="Image Description" required></textarea>
+                    <button id="uploadButton" type="submit">Upload</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="feed-container" class="feed-container">
+            <div id="container"></div>
+        </div>
+    </div>
+
+    <script src="../JS/socialFeed2.js"></script>
+</body>
+</html>
