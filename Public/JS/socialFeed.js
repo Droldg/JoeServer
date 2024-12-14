@@ -22,17 +22,25 @@ function showCommentField(socialID, postTitle) {
 }
 
 async function submitComment(socialID, postTitle) {
-    const commentInput = document.getElementById(`comment-input-${postTitle}`);
+    const commentInput = document.getElementById(`commentInput-${postTitle}`);
     const comment = commentInput.value.trim();
 
     if (!comment) {
-        alert("Please write a comment before submitting.");
+        alert('Please enter a comment before submitting.');
         return;
     }
 
-    // Debugging: Log data før request
-    const data = { socialID, postTitle, comment };
-    console.log("Submitting comment data:", data);
+    // Antag, at userName er gemt et sted i frontend (f.eks. i en global variabel)
+    const userName = await fetchUserDetails().name;
+
+    const commentData = {
+        socialID,
+        postTitle,
+        userName, // Tilføj userName
+        comment,
+    };
+
+    console.log('Submitting comment data:', commentData); // Debugging
 
     try {
         const response = await fetch('https://hait-joe.live/api/comment', {
@@ -40,19 +48,22 @@ async function submitComment(socialID, postTitle) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(commentData),
         });
 
         if (response.ok) {
-            alert("Comment added successfully.");
-            commentInput.value = ''; // Ryd tekstfeltet
+            console.log('Comment added successfully');
+            // Ryd tekstfeltet efter succes
+            commentInput.value = '';
+            fetchAndDisplayPosts(socialID); // Opdater feedet for at vise de nye kommentarer
         } else {
-            console.error("Failed to add comment:", await response.text());
+            console.error('Failed to add comment:', await response.text());
         }
     } catch (error) {
-        console.error("An error occurred while adding the comment:", error);
+        console.error('An error occurred while adding the comment:', error);
     }
 }
+
 
 
 
@@ -118,7 +129,6 @@ async function fetchUserDetails() {
         }
 
         const user = await response.json();
-        console.log(user)
         return user;
     } catch (error) {
         console.error('An error occurred while fetching user details:', error);
