@@ -334,7 +334,7 @@ async function fetchAndDisplayPosts(socialID) {
                 ? `<img src="${profilePicture}" alt="Profile Picture" class="profile-image">`
                 : `<div class="profile-placeholder"></div>`;
 
-            const postHTML = `
+                const postHTML = `
                 <div class="post-content">
                     <div class="post-header">
                         ${profileHTML}
@@ -347,7 +347,7 @@ async function fetchAndDisplayPosts(socialID) {
                     <div class="post-actions">
                         <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
                         <button class="comment-button" 
-                            onclick="showCommentField('${socialID}', '${post.postTitle}', ${JSON.stringify(post.postComments || [])})">
+                            onclick="showCommentField('${socialID}', '${post.postTitle}', ${JSON.stringify(post.postComments || []).replace(/'/g, "\\'")})">
                             Comment
                         </button>
                     </div>
