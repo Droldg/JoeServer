@@ -162,6 +162,33 @@ router.post('/comment', async (req, res) => {
     }
 });
 
+router.get('/comments/:socialID/:postTitle', async (req, res) => {
+    const { socialID, postTitle } = req.params;
+
+    try {
+        const pool = await poolPromise;
+
+        const query = `
+            SELECT postComments
+            FROM dbo.${socialID}
+            WHERE postTitle = @PostTitle
+        `;
+
+        const result = await pool.request()
+            .input('PostTitle', postTitle)
+            .query(query);
+
+        if (result.recordset.length === 0) {
+            return res.status(404).send('Post not found.');
+        }
+
+        const comments = result.recordset[0].postComments || '[]'; // Hvis null, brug en tom array-streng
+        res.status(200).json(JSON.parse(comments)); // Returner kommentarer som JSON-array
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        res.status(500).send('An error occurred while fetching comments.');
+    }
+});
 
 
 

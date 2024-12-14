@@ -5,32 +5,61 @@ const socialID = "social001";
 
 
 
-function showCommentField(socialID, postTitle, postComments = []) {
+async function showCommentField(socialID, postTitle) {
     const commentSection = document.getElementById(`comment-section-${postTitle}`);
 
-    // Fjern eksisterende indhold for at undgå flere tekstfelter
-    commentSection.innerHTML = '';
-
-    // Generer eksisterende kommentarer
-    const commentsHTML = postComments.map(comment => `
-        <div class="existing-comment">
-            <strong>${comment.userName}</strong>: ${comment.comment}
-            <small>${new Date(comment.timestamp).toLocaleString()}</small>
-        </div>
-    `).join('');
-
-    // Tilføj tekstfelt og eksisterende kommentarer
-    const commentBoxHTML = `
-        <div class="comment-box">
-            <input type="text" id="comment-input-${postTitle}" placeholder="Write a comment..." class="comment-input">
-            <button class="submit-comment" onclick="submitComment('${socialID}', '${postTitle}')">Submit</button>
-        </div>
-        <div class="existing-comments">
-            ${commentsHTML || '<p>No comments yet. Be the first to comment!</p>'}
-        </div>
+    // Ryd tidligere indhold
+    commentSection.innerHTML = `
+        <p>Loading comments...</p>
     `;
-    commentSection.innerHTML = commentBoxHTML;
+
+    try {
+        // Fetch de nyeste kommentarer fra backend
+        const response = await fetch(`https://hait-joe.live/api/comments/${socialID}/${postTitle}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch comments: ${response.statusText}`);
+        }
+
+        const comments = await response.json(); // Hent kommentarer som array
+
+        // Generer HTML til eksisterende kommentarer
+        const commentsHTML = comments.length
+            ? comments.map(comment => `
+                <div class="existing-comment">
+                    <strong>${comment.userName}</strong>: ${comment.comment}
+                    <small>${new Date(comment.timestamp).toLocaleString()}</small>
+                </div>
+            `).join('')
+            : '<p>No comments yet. Be the first to comment!</p>';
+
+        // Tilføj tekstfelt og eksisterende kommentarer
+        const commentBoxHTML = `
+            <div class="comment-box">
+                <input type="text" id="comment-input-${postTitle}" placeholder="Write a comment..." class="comment-input">
+                <button class="submit-comment" onclick="submitComment('${socialID}', '${postTitle}')">Submit</button>
+            </div>
+            <div class="existing-comments">
+                ${commentsHTML}
+            </div>
+        `;
+
+        // Opdater kommentarsektionen
+        commentSection.innerHTML = commentBoxHTML;
+
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        commentSection.innerHTML = `
+            <p>Error loading comments. Please try again later.</p>
+        `;
+    }
 }
+
 
 
 async function submitComment(socialID, postTitle) {
@@ -73,6 +102,9 @@ async function submitComment(socialID, postTitle) {
         if (response.ok) {
             console.log('Comment added successfully');
             commentInput.value = ''; // Ryd tekstfeltet
+
+            //Skal nok ændres til noget showComments
+
             fetchAndDisplayPosts(socialID); // Opdater feedet
         } else {
             console.error('Failed to add comment:', await response.text());
