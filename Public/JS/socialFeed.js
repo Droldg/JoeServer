@@ -5,6 +5,18 @@ const socialID = "social001";
 
 
 
+
+//Gør datoer til europæisk aka. DD/MM/YY
+async function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Måneder er 0-indekseret
+    const year = String(date.getFullYear()).slice(-2); // Henter de sidste 2 cifre af året
+    return `${day}/${month}/${year}`;
+}
+
+
+
 async function showCommentField(socialID, postTitle) {
     const commentSection = document.getElementById(`comment-section-${postTitle}`);
 
@@ -33,7 +45,7 @@ async function showCommentField(socialID, postTitle) {
             ? comments.map(comment => `
                 <div class="existing-comment">
                     <strong>${comment.userName}</strong>: ${comment.comment}
-                    <small>${new Date(comment.timestamp).toLocaleString()}</small>
+                    <small>${formatDate(comment.timestamp)}</small>
                 </div>
             `).join('')
             : '<p>No comments yet. Be the first to comment!</p>';
