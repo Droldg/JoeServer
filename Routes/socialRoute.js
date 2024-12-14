@@ -23,7 +23,7 @@ router.post('/create-post', async (req, res) => {
             .input('postLikes', 0) // Standardværdien for likes
             .input('postComments', '') // Tom kommentar som standard
             .query(`
-                INSERT INTO @sociaID (socialID, userID, postTitle, postCaption, postMedia, postLikes, postComments)
+                INSERT INTO @socialID (socialID, userID, postTitle, postCaption, postMedia, postLikes, postComments)
                 VALUES (@socialID, @userID, @postTitle, @postCaption, @postMedia, @postLikes, @postComments);
             `);
 
