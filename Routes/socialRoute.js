@@ -5,7 +5,6 @@ const router = express.Router();
 // Endpoint til oprettelse af en post
 router.post('/create-post', async (req, res) => {
     const { socialID, userID, title, message, media } = req.body;
-    //console.log(req.body)
 
     // Validering af input
     if (!socialID || !userID || !title || !message || !media) {
@@ -14,6 +13,15 @@ router.post('/create-post', async (req, res) => {
 
     try {
         const pool = await poolPromise; // Henter databaseforbindelsen
+        const tableName = `dbo.${socialID}`; // Dynamisk tabelnavn baseret på socialID
+
+        // Dynamisk query med sikkerhed for at undgå SQL Injection
+        const query = `
+            INSERT INTO ${tableName} 
+            (socialID, userID, postTitle, postCaption, postMedia, postLikes, postComments)
+            VALUES (@socialID, @userID, @postTitle, @postCaption, @postMedia, @postLikes, @postComments);
+        `;
+
         await pool.request()
             .input('socialID', socialID)
             .input('userID', userID)
@@ -21,11 +29,8 @@ router.post('/create-post', async (req, res) => {
             .input('postCaption', message)
             .input('postMedia', media)
             .input('postLikes', 0) // Standardværdien for likes
-            .input('postComments', '') // Tom kommentar som standard
-            .query(`
-                INSERT INTO @socialID (socialID, userID, postTitle, postCaption, postMedia, postLikes, postComments)
-                VALUES (@socialID, @userID, @postTitle, @postCaption, @postMedia, @postLikes, @postComments);
-            `);
+            .input('postComments', JSON.stringify([])) // Tom kommentar som standard
+            .query(query);
 
         res.status(201).send({ message: 'Post created successfully!' });
     } catch (error) {
@@ -33,6 +38,7 @@ router.post('/create-post', async (req, res) => {
         res.status(500).send('An error occurred while creating the post.');
     }
 });
+
 
 
 // Endpoint til at hente alle posts med et specifikt socialID
