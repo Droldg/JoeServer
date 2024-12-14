@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch('https://hait-joe.live/api/edit-profile', {
+            const response = await fetch('https://hait-joe.live/api/edit-profile/password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include', // Send cookies med
-                body: JSON.stringify({ password }), // Send kun password for at opdatere det
+                body: JSON.stringify({ password }), // Send kun adgangskoden
             });
 
             if (response.ok) {

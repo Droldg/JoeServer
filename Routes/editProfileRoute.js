@@ -31,35 +31,33 @@ router.get('/', sessionValidator, async (req, res) => {
     }
 });
 
-// Opdater brugeroplysninger
-router.post('/', sessionValidator, async (req, res) => {
-    const { name, email, password } = req.body;
+// Opdater password
+router.post('/password', sessionValidator, async (req, res) => {
+    const { password } = req.body;
+
+    if (!password) {
+        return res.status(400).send('Password is required.');
+    }
 
     try {
         const pool = await poolPromise;
 
-        if (password) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            await pool.request()
-                .input('UserID', req.user.id)
-                .input('Name', name)
-                .input('Email', email)
-                .input('Password', hashedPassword)
-                .query('UPDATE dbo.UserTable SET Name = @Name, Email = @Email, Password = @Password WHERE UserID = @UserID;');
-        } else {
-            await pool.request()
-                .input('UserID', req.user.id)
-                .input('Name', name)
-                .input('Email', email)
-                .query('UPDATE dbo.UserTable SET Name = @Name, Email = @Email WHERE UserID = @UserID;');
-        }
+        // Hash adgangskoden
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        res.status(200).send('Profile updated successfully.');
+        // Opdater kun adgangskoden i databasen
+        await pool.request()
+            .input('UserID', req.user.id)
+            .input('Password', hashedPassword)
+            .query('UPDATE dbo.UserTable SET Password = @Password WHERE UserID = @UserID;');
+
+        res.status(200).send('Password updated successfully.');
     } catch (error) {
-        console.error('Error updating profile:', error);
-        res.status(500).send('An error occurred during profile update.');
+        console.error('Error updating password:', error);
+        res.status(500).send('An error occurred while updating the password.');
     }
 });
+
 
 // Upload profilbillede
 router.post('/upload-profile-picture', sessionValidator, async (req, res) => {
