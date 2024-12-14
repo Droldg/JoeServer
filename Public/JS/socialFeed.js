@@ -15,8 +15,6 @@ function formatDate(timestamp) {
     return `${day}/${month}/${year}`;
 }
 
-
-
 async function showCommentField(socialID, postTitle) {
     const commentSection = document.getElementById(`comment-section-${postTitle}`);
 
