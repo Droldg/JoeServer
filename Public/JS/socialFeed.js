@@ -104,8 +104,8 @@ async function submitComment(socialID, postTitle) {
             commentInput.value = ''; // Ryd tekstfeltet
 
             //Skal nok ændres til noget showComments
-
-            fetchAndDisplayPosts(socialID); // Opdater feedet
+            showCommentField(socialID, postTitle)
+            //fetchAndDisplayPosts(socialID); // Opdater feedet
         } else {
             console.error('Failed to add comment:', await response.text());
         }
