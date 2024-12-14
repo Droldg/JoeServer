@@ -346,7 +346,10 @@ async function fetchAndDisplayPosts(socialID) {
                     <p class="post-likes"><strong>Likes:</strong> ${post.postLikes}</p>
                     <div class="post-actions">
                         <button class="like-button" onclick="likePost('${socialID}', '${post.postTitle}')">Like</button>
-                        <button class="comment-button" onclick="showCommentField('${socialID}', '${post.postTitle}', ${post.postComments || '[]'})">Comment</button>
+                        <button class="comment-button" 
+                            onclick="showCommentField('${socialID}', '${post.postTitle}', ${JSON.stringify(post.postComments || [])})">
+                            Comment
+                        </button>
                     </div>
                     <div class="comment-section" id="comment-section-${post.postTitle}">
                         <!-- Kommentarfelt vises dynamisk her -->
@@ -359,6 +362,7 @@ async function fetchAndDisplayPosts(socialID) {
         console.error('An error occurred while fetching posts:', err);
     }
 }
+
 
 
 
