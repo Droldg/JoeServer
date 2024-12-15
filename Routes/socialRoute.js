@@ -52,16 +52,18 @@ router.get('/posts/:socialID', async (req, res) => {
         console.log(`Fetching posts from table: ${tableName}`);
 
         const query = `
-            SELECT 
-                p.postTitle, 
-                p.postCaption, 
-                p.postLikes, 
-                p.postMedia, 
-                p.postComments, 
-                u.ProfilePicture, 
-                u.Name AS userID
-            FROM ${tableName} p
-            LEFT JOIN dbo.UserTable u ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR)
+        SELECT 
+            p.postTitle, 
+            p.postCaption, 
+            p.postLikes, 
+            p.postMedia, 
+            p.postComments, 
+            u.ProfilePicture, 
+            u.Name AS userName -- Brugerens navn, som har lavet opslaget
+        FROM ${tableName} p
+        LEFT JOIN dbo.UserTable u 
+            ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR)
+
         `;
 
         const result = await pool.request()

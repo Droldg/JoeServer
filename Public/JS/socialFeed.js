@@ -372,7 +372,7 @@ async function fetchAndDisplayPosts(socialID) {
 
         posts.forEach((post) => {
             //console.log(post)
-            // Brug en standard sort cirkel som baggrund, hvis der ikke er et profilbillede
+            // Brug en sort cirkel som baggrund, hvis der ikke er et profilbillede
             const profilePicture = userDetails.profilePicture
                 ? `${userDetails.profilePicture}`
                 : ''; // Hvis null, sæt ikke noget billede
