@@ -58,11 +58,12 @@ router.get('/posts/:socialID', async (req, res) => {
             p.postLikes, 
             p.postMedia, 
             p.postComments, 
-            u.ProfilePicture, 
-            u.Name AS userName -- Brugerens navn, som har lavet opslaget
+            ISNULL(u.ProfilePicture, 'No Picture') AS ProfilePicture,
+            ISNULL(u.Name, 'Unknown User') AS userName
         FROM ${tableName} p
         LEFT JOIN dbo.UserTable u 
-            ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR)
+            ON CAST(p.userID AS VARCHAR) = CAST(u.UserID AS VARCHAR);
+
 
         `;
 
