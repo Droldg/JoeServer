@@ -57,7 +57,7 @@ router.get('/posts/:socialID', async (req, res) => {
                 p.postCaption, 
                 p.postLikes, 
                 p.postMedia, 
-                p.postComments, -- Hent postComments
+                p.postComments, 
                 u.ProfilePicture, 
                 u.Name AS userID
             FROM ${tableName} p

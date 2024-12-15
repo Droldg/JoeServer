@@ -94,7 +94,7 @@ async function submitComment(socialID, postTitle) {
     const commentData = {
         socialID,
         postTitle,
-        userName: loggedInUserName, // Brug den globale variabel
+        userName: loggedInUserName, 
         comment,
     };
 
@@ -204,12 +204,12 @@ async function likePost(socialID, postTitle) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ socialID, postTitle }), // Send både socialID og postTitle
+            body: JSON.stringify({ socialID, postTitle }), // Sender både socialID og postTitle
         });
 
         if (response.ok) {
             console.log(`Post "${postTitle}" liked successfully in socialID "${socialID}".`);
-            fetchAndDisplayPosts(socialID); // Opdater feedet for at vise den nye like-count
+            fetchAndDisplayPosts(socialID); // Opdaterer feedet for at vise den nye like-count
         } else {
             console.error('Failed to like post:', await response.text());
         }
