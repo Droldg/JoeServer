@@ -1,7 +1,7 @@
 const config = {
-    user: 'programmering',
-    password: 'JoeMama123',
-    server: 'programmeringserver.database.windows.net',
+    user: '',
+    password: '',
+    server: '',
     database: 'Joe',
     options: {
         encrypt: true,

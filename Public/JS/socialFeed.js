@@ -1,4 +1,4 @@
-
+//SocialID bestemmer hvilken Joe-lokation brugeren er gået ind på
 
 const socialID = "social001";
 
@@ -24,7 +24,7 @@ async function showCommentField(socialID, postTitle) {
     `;
 
     try {
-        // Fetch de nyeste kommentarer fra backend
+        // Fetch de nyeste kommentarer fra Azure
         const response = await fetch(`https://hait-joe.live/api/comments/${socialID}/${postTitle}`, {
             method: 'GET',
             headers: {
@@ -113,9 +113,10 @@ async function submitComment(socialID, postTitle) {
             console.log('Comment added successfully');
             commentInput.value = ''; // Ryd tekstfeltet
 
-            //Skal nok ændres til noget showComments
-            showCommentField(socialID, postTitle)
+            //Skal nok ændres til noget showCommentField
             //fetchAndDisplayPosts(socialID); // Opdater feedet
+            showCommentField(socialID, postTitle)
+           
         } else {
             console.error('Failed to add comment:', await response.text());
         }
@@ -142,7 +143,7 @@ async function addComment(socialID, postTitle, userName, comment) {
 
         if (response.ok) {
             console.log('Comment added successfully.');
-            // Opdater UI, hvis nødvendigt
+            // Opdater UI
         } else {
             console.error('Failed to add comment:', await response.text());
         }
@@ -153,7 +154,7 @@ async function addComment(socialID, postTitle, userName, comment) {
 
 
 
-// Funktion til at lukke modal
+// Funktion til at lukke modal med uploadform
 function closeModal() {
     const modal = document.getElementById('uploadModal');
     modal.style.display = 'none';
@@ -296,8 +297,8 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
         };
 
         // Debugging
-        console.log('UserID:', evt.name);
-        console.log('Data to be sent:', data);
+        //console.log('UserID:', evt.name);
+        //console.log('Data to be sent:', data);
 
         try {
             // Send data til serveren
@@ -306,7 +307,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (event) =
             // Luk modal
             closeModal();
 
-            // Opdater feed
+            // Opdater feed, så den nye post kommer frem
             fetchAndDisplayPosts(socialID);
         } catch (err) {
             console.error(err);
@@ -341,7 +342,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Luk modal, når brugeren klikker på "×"
     closeModalBtn.addEventListener('click', closeModal);
 
-    // Luk modal, når brugeren klikker uden for modal-indholdet
+    // Luk også modal, når brugeren klikker uden for modal-indholdet
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             closeModal();
@@ -408,11 +409,10 @@ async function fetchAndDisplayPosts(socialID) {
 }
 
 
-// Eksempel: Hent posts med et specifikt socialID
+// Hent posts med et specifikt socialID, når brugeren går ind på siden
 fetchAndDisplayPosts(socialID);
 
 
-// Funktion til at hente brugeroplysninger
 
 
 

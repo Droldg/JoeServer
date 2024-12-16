@@ -13,7 +13,7 @@ router.post('/create-post', async (req, res) => {
 
     try {
         const pool = await poolPromise; // Henter databaseforbindelsen
-        const tableName = `dbo.${socialID}`; // Dynamisk tabelnavn baseret på socialID
+        const tableName = `dbo.${socialID}`; // Dynamisk tabelnavn baseret på socialID (socialIDXXX)
 
         // Dynamisk query med sikkerhed for at undgå SQL Injection
         const query = `
@@ -29,7 +29,7 @@ router.post('/create-post', async (req, res) => {
             .input('postCaption', message)
             .input('postMedia', media)
             .input('postLikes', 0) // Standardværdien for likes
-            .input('postComments', JSON.stringify([])) // Tom kommentar som standard
+            .input('postComments', JSON.stringify([])) // Tom kommentar som standard ved ny post
             .query(query);
 
         res.status(201).send({ message: 'Post created successfully!' });
@@ -75,7 +75,7 @@ router.get('/posts/:socialID', async (req, res) => {
             return res.status(404).send('No posts found.');
         }
 
-        // Parse postComments fra JSON-streng (hvis nødvendigt)
+
         const postsWithParsedComments = result.recordset.map(post => ({
             ...post,
             postComments: post.postComments ? JSON.parse(post.postComments) : [] // Pars JSON-streng, eller returner tom array

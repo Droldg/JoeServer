@@ -1,9 +1,9 @@
 import requests
 
-# Google Maps API Key (indsæt din egen nøgle her)
-API_KEY = "AIzaSyDo5awHrkRMFWHM5P93stcR1TE-lD5gIRc"
+# Google Maps API Key
+API_KEY = ""
 
-# Liste af adresser, der skal geokodes
+# Liste af adresser, der skal geokodes vha API'en
 addresses = [
     "Nørregade 12, 1165 København",
     "Skindergade 33, 1159 København",
